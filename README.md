@@ -19,8 +19,8 @@ RBAC standard current version describe four major components.
 
 ## Optional features that will be supported
 
-* Static separation of duties (SSOD as defined by standard)
-* Dynamic separation of duties (DSOD as defined by standard)
+* Static separation of duty relations (SSD as defined by standard)
+* Dynamic separation of dutiy relations (DSOD as defined by standard)
 
 # Technology used
 
