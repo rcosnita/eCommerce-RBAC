@@ -1,5 +1,6 @@
 package org.ecommerce.rbac.api;
 
+import org.ecommerce.rbac.api.management.RbacRolesManager;
 import org.ecommerce.rbac.api.management.RbacUsersManager;
 
 /**
@@ -42,4 +43,11 @@ public interface RbacManager {
 	 * @return
 	 */
 	public RbacUsersManager getRbacUsersManager();
+	
+	/**
+	 * Method used to return an instance of RbacRolesManager object. Using this
+	 * object you can interact with roles from rbac system.
+	 * @return
+	 */
+	public RbacRolesManager getRbacRolesManager();
 }
