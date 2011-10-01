@@ -1,4 +1,4 @@
-package org.ecommerce.rbac.api;
+package org.ecommerce.rbac.api.management;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

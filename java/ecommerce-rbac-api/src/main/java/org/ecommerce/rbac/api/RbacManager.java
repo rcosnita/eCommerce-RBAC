@@ -1,5 +1,6 @@
 package org.ecommerce.rbac.api;
 
+import org.ecommerce.rbac.api.management.RbacObjectsManager;
 import org.ecommerce.rbac.api.management.RbacRolesManager;
 import org.ecommerce.rbac.api.management.RbacUsersManager;
 
