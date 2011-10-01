@@ -4,6 +4,7 @@ import org.ecommerce.rbac.api.management.RbacObjectsManager;
 import org.ecommerce.rbac.api.management.RbacOperationsManager;
 import org.ecommerce.rbac.api.management.RbacPermissionsManager;
 import org.ecommerce.rbac.api.management.RbacRolesManager;
+import org.ecommerce.rbac.api.management.RbacSessionsManager;
 import org.ecommerce.rbac.api.management.RbacUsersManager;
 
 /**
@@ -78,4 +79,11 @@ public interface RbacManager {
 	 * @return
 	 */	
 	public RbacPermissionsManager getRbacPermissionsManager();
+	
+	/**
+	 * Method used to return an instance of RbacSessionsManager object. Using
+	 * this object you can interact with sessions from RBAC system.
+	 * @return
+	 */
+	public RbacSessionsManager getRbacSessionsManager();
 }
