@@ -1,5 +1,7 @@
 package org.ecommerce.rbac.api;
 
+import org.ecommerce.rbac.api.management.RbacUsersManager;
+
 /**
 Copyright (C) 2001 by Radu Viorel Cosnita
 
@@ -33,5 +35,11 @@ THE SOFTWARE.*/
  */
 
 public interface RbacManager {
-
+	/**
+	 * Method used to return an instance of  RbacUserManager object. Using
+	 * this object you can interact with users from rbac system. 
+	 * 
+	 * @return
+	 */
+	public RbacUsersManager getRbacUsersManager();
 }
