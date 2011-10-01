@@ -50,4 +50,11 @@ public interface RbacManager {
 	 * @return
 	 */
 	public RbacRolesManager getRbacRolesManager();
+	
+	/**
+	 * Method used to return an instance of RbacObjectsManager object. Using
+	 * this object you can interact with objects from rbac system.
+	 * @return
+	 */
+	public RbacObjectsManager getRbacObjectsManager();
 }
