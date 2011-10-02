@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.ecommerce.rbac.persistence</groupId>
+	<artifactId>ecommerce-rbac-entities</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>ecommerce-rbac-entities</name>
+	<description>This project holds all entities required to build the persistence layer for rbac system.</description>
+	<url>https://github.com/rcosnita/eCommerce-RBAC/wiki</url>
+
+	<parent>
+		<groupId>org.ecommerce.rbac.project</groupId>
+		<artifactId>ecommerce-rbac-project</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<developers>
+		<developer>
+			<id>rcosnita</id>
+			<name>Cosnita Radu Viorel</name>
+			<email>radu.cosnita@gmail.com</email>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+				<role>Analyst</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>		
+	</dependencies>	
+</project>
