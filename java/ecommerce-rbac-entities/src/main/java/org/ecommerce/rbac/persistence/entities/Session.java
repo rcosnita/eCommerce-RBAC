@@ -1,9 +1,17 @@
-package org.ecommerce.rbac.dto;
+package org.ecommerce.rbac.persistence.entities;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
 Copyright (C) 2001 by Radu Viorel Cosnita
@@ -27,61 +35,88 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 /**
- * This is the session resource from RBAC standard. In here we also support
- * some basic audit properties like: active session, start time, end time.
+ * Class used to model a RBAC session component.
  * 
  * @author Radu Viorel Cosnita
  * @version 1.0
- * @since 01.11.2011
+ * @since 02.11.2011
  */
 
-@XmlRootElement(name="session")
-public class Session implements Serializable {
+@Entity
+@Table(name="Sessions")
+public class Session {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
 	private Integer id;
-	private boolean active;
-	private Date startTime;
-	private Date endTime;
 	
-	/**
-	 * This attribute is nowhere mentioned in RBAC standard. It is used
-	 * for integrating with web frameworks that supports server side
-	 * session management.
-	 */
+	@Column(name="active")
+	private boolean active;
+	
+	@Column(name="start_date")
+	private Date startDate;
+	
+	@Column(name="end_date")
+	private Date endDate;
+	
+	@Column(name="remote_session")
 	private String remoteSession;
+
+	/**
+	 * These are all roles activated within the current session.
+	 */
+	@ManyToMany
+	@JoinTable(name="SessionRoles",
+			joinColumns={@JoinColumn(name="session_id", referencedColumnName="id")},
+			inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
+	)
+	private List<Role> sessionRoles;
 	
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public boolean isActive() {
 		return active;
 	}
+
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public Date getStartTime() {
-		return startTime;
+
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
-	public Date getEndTime() {
-		return endTime;
+
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
-	
+
 	public String getRemoteSession() {
 		return remoteSession;
 	}
+
 	public void setRemoteSession(String remoteSession) {
 		this.remoteSession = remoteSession;
 	}
-	@Override
-	public String toString() {
-		return String.format("Session %s started on %s.", this.getId(), this.getStartTime());
+	
+	public List<Role> getSessionRoles() {
+		return sessionRoles;
 	}
+
+	public void setSessionRoles(List<Role> sessionRoles) {
+		this.sessionRoles = sessionRoles;
+	}	
 }

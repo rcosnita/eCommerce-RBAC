@@ -132,7 +132,15 @@
 	            <artifactId>mysql-connector-java</artifactId>
 	            <version>5.1.9</version>
 	            <scope>test</scope>
-	        </dependency>			
+	        </dependency>
+	        
+	        <!-- RBAC system dependencies -->
+			<dependency>
+				<groupId>org.ecommerce.rbac.api</groupId>
+				<artifactId>ecommerce-rbac-api</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>	        			
 		</dependencies>
 	</dependencyManagement>
 

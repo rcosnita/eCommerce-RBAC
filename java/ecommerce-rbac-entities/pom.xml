@@ -35,6 +35,11 @@
 	</developers>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.ecommerce.rbac.api</groupId>
+			<artifactId>ecommerce-rbac-api</artifactId>		
+		</dependency>	
+	
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
