@@ -1,7 +1,8 @@
-package org.ecommerce.rbac.api;
+package org.ecommerce.rbac.dto;
 
-import org.ecommerce.rbac.api.management.RbacDsdManager;
-import org.ecommerce.rbac.api.management.RbacInheritanceManager;
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
 Copyright (C) 2001 by Radu Viorel Cosnita
@@ -25,34 +26,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 /**
- * This is the main entry point of ecommerce rbac project. This provides
- * all methods to interact with the rbac implementation in a uniform way.
+ * This class is used to model a dynamic separation rule. This 
+ * class is fully compliant with RBAC 2.0 definition of DSD rules.
  * 
  * @author Radu Viorel Cosnita
  * @version 1.0
- * @since 01.10.2011
- * @see https://github.com/rcosnita/eCommerce-RBAC/wiki
+ * @since 02.11.2011
  */
 
-public interface Rbac {
-	/**
-	 * Method used to an instance of rbac core features manager.
-	 * 
-	 * @return
-	 */
-	public RbacManager getRbacManager();
+@XmlRootElement(name="dynamic-separation-rule")
+public class DynamicSeparationRule implements Serializable {
+	private Integer id;
+	private String name;
+	private Integer cardinality;
 	
-	/**
-	 * Method used to obtain a dynamic separation of duty manager.
-	 * 
-	 * @return
-	 */
-	public RbacDsdManager getDsdManager();
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getCardinality() {
+		return cardinality;
+	}
+	public void setCardinality(Integer cardinality) {
+		this.cardinality = cardinality;
+	}
 	
-	/**
-	 * Method used to obtain an rbac inheritance manager.. 
-	 * 
-	 * @return
-	 */
-	public RbacInheritanceManager getInheritanceManager();
+	@Override
+	public String toString() {
+		return String.format("DSD %s:%s with cardinality %s.", 
+				this.getId(), this.getName(), this.getCardinality());
+	}
 }
