@@ -21,6 +21,7 @@
 	<modules>
 		<module>../ecommerce-rbac-api</module>
 		<module>../ecommerce-rbac-entities</module>
+		<module>../ecommerce-rbac-dao</module>
 	</modules>
 
 	<dependencyManagement>
@@ -120,6 +121,13 @@
 				<scope>provided</scope>
 			</dependency>
 
+	        <dependency>
+	            <groupId>javax.annotation</groupId>
+	            <artifactId>jsr250-api</artifactId>
+	            <version>1.0</version>
+	            <scope>provided</scope>
+	        </dependency>
+
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -140,7 +148,14 @@
 				<artifactId>ecommerce-rbac-api</artifactId>
 				<version>1.0-SNAPSHOT</version>
 				<scope>provided</scope>
-			</dependency>	        			
+			</dependency>
+			
+			<dependency>
+				<groupId>org.ecommerce.rbac.persistence</groupId>
+				<artifactId>ecommerce-rbac-entities</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

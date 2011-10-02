@@ -71,7 +71,7 @@ public interface RbacRolesManager {
 	 */
 	@Path("/{roleId}")
 	@GET
-	public Role loadAllRoles(@PathParam("roleId") Integer roleId);
+	public Role loadRoleById(@PathParam("roleId") Integer roleId);
 	
 	/**
 	 * Return all users belonging to a specified role.
@@ -142,7 +142,7 @@ public interface RbacRolesManager {
 	@PUT
 	public void assignUsersToRole(
 			@PathParam("roleId") Integer roleId,
-			Users users
+			List<Integer> users
 	);
 	
 	/**
@@ -155,7 +155,7 @@ public interface RbacRolesManager {
 	@PUT
 	public void assignPermissionsToRole(
 			@PathParam("roleId") Integer roleId,
-			Permissions permissions
+			List<Integer> permissions
 	);
 	
 	/**

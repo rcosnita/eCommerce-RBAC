@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import org.ecommerce.rbac.dto.Permissions;
 import org.ecommerce.rbac.dto.Roles;
 import org.ecommerce.rbac.dto.Sessions;
 /**
@@ -70,7 +71,7 @@ public interface RbacSessionsManager {
 	 */
 	@Path("/{sessionId}/roles")
 	@GET
-	public Roles loadSessionsRoles(
+	public Roles loadSessionRoles(
 			@PathParam("sessionId") Integer sessionId,
 			@QueryParam("onlyActive") boolean onlyActive);	
 	
@@ -83,7 +84,7 @@ public interface RbacSessionsManager {
 	 */
 	@Path("/{sessionId}/permissions")
 	@GET
-	public Roles loadSessionsPermissions(
+	public Permissions loadSessionPermissions(
 			@PathParam("sessionId") Integer sessionId,
 			@QueryParam("onlyActive") boolean onlyActive);
 	
@@ -97,7 +98,7 @@ public interface RbacSessionsManager {
 	 */
 	@Path("/{sessionId}/permissions/{permissionId}")
 	@GET
-	public Roles checkSessionsPermissionEnabled(
+	public Boolean checkSessionPermissionEnabled(
 			@PathParam("sessionId") Integer sessionId,
 			@PathParam("permissionId") Integer permissionId,
 			@QueryParam("onlyActive") boolean onlyActive);
@@ -136,7 +137,7 @@ public interface RbacSessionsManager {
 	 */
 	@Path("/{sessionId}")
 	@DELETE
-	public void stopSessions(@PathParam("sessionId") Integer sessionId);
+	public void stopSession(@PathParam("sessionId") Integer sessionId);
 	
 	/**
 	 * Method used to deactivate an active role from session.
