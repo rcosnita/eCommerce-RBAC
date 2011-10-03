@@ -39,7 +39,7 @@ THE SOFTWARE.*/
  * 
  * @author Radu Viorel Cosnita
  * @version 1.0
- * @since 02.11.2011
+ * @since 02.10.2011
  */
 
 @Entity

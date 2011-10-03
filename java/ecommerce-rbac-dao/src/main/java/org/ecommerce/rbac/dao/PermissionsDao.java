@@ -1,11 +1,8 @@
-package org.ecommerce.rbac.persistence;
+package org.ecommerce.rbac.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
-import org.ecommerce.rbac.persistence.entities.User;
-import org.junit.Test;
+import org.ecommerce.rbac.persistence.entities.Permission;
 
 /**
 Copyright (C) 2001 by Radu Viorel Cosnita
@@ -29,22 +26,51 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 /**
- * This class ensure that mapping of jpa entities is correct. It is executed
- * as a JUnit test suie.
+ * API for permissions data access object layer.
  * 
  * @author Radu Viorel Cosnita
  * @version 1.0
- * @since 02.10.2011
+ * @since 03.10.2011
  */
-public class TestEntities {
+public interface PermissionsDao {
 	/**
-	 * Method executed for testing JPA initialization.
+	 * Method used to load all defined permissions.
+	 * 
+	 * @return
 	 */
-    @Test
-    public void testJPAInit() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("rbac-pu-test");
-        EntityManager em = emf.createEntityManager();
-        
-        User user = em.find(User.class, 1);
-    }
+	public List<Permission> loadAllPermissions();
+	
+	/**
+	 * Method used to load specified permission.
+	 * 
+	 * @param permissionId Permission unique identifier.
+	 * @return
+	 */
+	public Permission loadPermissionById(Integer permissionId);
+	
+	/**
+	 * Method used to create a new permission.
+	 * 
+	 * @param operationId Operation unique identifier.
+	 * @param objectId Object unique identifier.
+	 * @param permission Permission instance.
+	 */
+	public void createNewPermission(
+			Integer operationId,
+			Integer objectId, 			
+			Permission permission);
+	
+	/**
+	 * Update an existing permission.
+	 * 
+	 * @param permission A permission instance.
+	 */
+	public void updatePermission(Permission permission);
+	
+	/**
+	 * Remove an existing permission.
+	 * 
+	 * @param permissionId Permission unique identifier.
+	 */
+	public void removePermission(Integer permissionId);
 }
