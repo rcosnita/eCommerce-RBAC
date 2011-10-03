@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -43,6 +45,9 @@ THE SOFTWARE.*/
 
 @Entity
 @Table(name="Users")
+@NamedQueries({
+	@NamedQuery(name="Users.loadAll", query="SELECT obj FROM User obj")
+})
 public class User {
 	@Id
 	@Column(name="id")
@@ -50,7 +55,7 @@ public class User {
 	
 	@ManyToMany(mappedBy="assignedUsers")
 	private List<Role> roles;
-
+	
 	public Integer getId() {
 		return id;
 	}

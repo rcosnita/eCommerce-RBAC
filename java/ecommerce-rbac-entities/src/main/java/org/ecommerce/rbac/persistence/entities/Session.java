@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -44,6 +46,11 @@ THE SOFTWARE.*/
 
 @Entity
 @Table(name="Sessions")
+@NamedQueries({
+	@NamedQuery(name="Sessions.loadActiveSessionsByUser", 
+			query="SELECT obj FROM Session obj INNER JOIN obj.sessionUsers user " +
+				"WHERE obj.active = 1 AND user.id = :userId")
+})
 public class Session {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -71,6 +78,15 @@ public class Session {
 			inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
 	)
 	private List<Role> sessionRoles;
+
+	/**
+	 * These are all users belonging to a specified session.
+	 */
+	@ManyToMany
+	@JoinTable(name="UserSessions",
+			joinColumns={@JoinColumn(name="session_id", referencedColumnName="id")},
+			inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})
+	private List<User> sessionUsers;
 	
 	public Integer getId() {
 		return id;
