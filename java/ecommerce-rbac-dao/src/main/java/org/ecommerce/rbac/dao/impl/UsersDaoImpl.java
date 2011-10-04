@@ -84,6 +84,7 @@ public class UsersDaoImpl implements UsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void createNewUser(User user) {
 		logger.info(String.format("JPA creating adding new user %s.", user.getId()));
 		
@@ -97,6 +98,7 @@ public class UsersDaoImpl implements UsersDao {
 	 * implemented).
 	 */
 	@Override
+	@Transactional
 	public void updateUser(User user) {
 		logger.info(String.format("JPA updating user %s.", user.getId()));
 		
@@ -132,6 +134,7 @@ public class UsersDaoImpl implements UsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void deleteUser(Integer userId) {
 		logger.info(String.format("JPA removing user %s.", userId));
 		
@@ -140,8 +143,6 @@ public class UsersDaoImpl implements UsersDao {
 		if(user == null) {
 			throw new NoResultException(String.format("User %s not found.", userId));
 		}
-		
-		// TODO remove user from other entities that hold reference to user.
 		
 		getEntityManager().remove(user);
 	}

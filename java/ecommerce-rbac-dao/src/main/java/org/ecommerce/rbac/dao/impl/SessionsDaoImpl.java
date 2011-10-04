@@ -197,6 +197,7 @@ public class SessionsDaoImpl implements SessionsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void stopSession(Integer sessionId) {
 		logger.info(String.format("JPA stopping session %s.", sessionId));
 		

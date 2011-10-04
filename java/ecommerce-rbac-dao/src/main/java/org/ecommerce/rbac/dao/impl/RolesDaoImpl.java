@@ -85,6 +85,7 @@ public class RolesDaoImpl implements RolesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void createNewRole(Role role) {
 		logger.info(String.format("JPA create role %s.", role.getName()));
 		
@@ -99,6 +100,7 @@ public class RolesDaoImpl implements RolesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void updateRole(Role role) {
 		logger.info(String.format("JPA updating role %s.", role.getName()));
 		
@@ -172,8 +174,6 @@ public class RolesDaoImpl implements RolesDao {
 		if(role == null) {
 			throw new NoResultException(String.format("Role %s does not exist.", roleId));
 		}
-		
-		// TODO remove role from all referencing entities.
 		
 		getEntityManager().remove(role);
 	}
