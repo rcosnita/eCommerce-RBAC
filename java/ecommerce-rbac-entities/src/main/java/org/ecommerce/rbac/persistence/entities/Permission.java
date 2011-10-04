@@ -1,12 +1,18 @@
 package org.ecommerce.rbac.persistence.entities;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -40,6 +46,10 @@ THE SOFTWARE.*/
 
 @Entity
 @Table(name="Permissions")
+@NamedQueries({
+	@NamedQuery(name="Permissions.loadAll", 
+			query="SELECT perm FROM Permission perm ORDER BY perm.name")
+})
 public class Permission {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -56,6 +66,9 @@ public class Permission {
 	@ManyToOne
 	@JoinColumn(name="object_id", referencedColumnName="id")
 	private SecurityObject object;
+	
+	@ManyToMany(cascade={CascadeType.ALL}, mappedBy="permissions")
+	private Set<Role> roles;
 
 	public Integer getId() {
 		return id;
@@ -88,6 +101,14 @@ public class Permission {
 	public void setObject(SecurityObject object) {
 		this.object = object;
 	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}	
 	
 	/**
 	 * Permissions equality is determined based on name or permision i.

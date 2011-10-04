@@ -41,6 +41,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
+/**
+ * Sessions DAO official implementation.
+ * 
+ * @author Radu Viorel Cosnita
+ * @version 1.0
+ * @since 05.10.2011
+ */
+
 @Repository("sessionsDaoBean")
 public class SessionsDaoImpl implements SessionsDao {
 	private final static Logger logger = Logger.getLogger(SessionsDaoImpl.class.getName());
