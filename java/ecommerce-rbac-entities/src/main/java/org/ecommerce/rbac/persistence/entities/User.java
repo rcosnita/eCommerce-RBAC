@@ -2,6 +2,7 @@ package org.ecommerce.rbac.persistence.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -53,7 +54,7 @@ public class User {
 	@Column(name="id")
 	private Integer id;
 	
-	@ManyToMany(mappedBy="assignedUsers")
+	@ManyToMany(mappedBy="assignedUsers", cascade={CascadeType.ALL})
 	private List<Role> roles;
 	
 	public Integer getId() {
@@ -70,5 +71,18 @@ public class User {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+	
+	/**
+	 * Users equality is determined based on primary key.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof User) {
+			User usr = User.class.cast(obj);
+			return usr.getId() == this.getId();
+		}
+		
+		return super.equals(obj);
 	}
 }

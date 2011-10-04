@@ -67,6 +67,13 @@ public interface UsersDao {
 	public void updateUser(User user);
 	
 	/**
+	 * Method used to remove an existing user.
+	 * 
+	 * @param userId User unique identifier.
+	 */
+	public void deleteUser(Integer userId);
+	
+	/**
 	 * Method used to stop all user active sessions using a single transaction.
 	 *  
 	 * @param id User unique identifier.

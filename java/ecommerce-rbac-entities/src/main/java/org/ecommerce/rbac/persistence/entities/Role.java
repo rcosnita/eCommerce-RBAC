@@ -1,7 +1,9 @@
 package org.ecommerce.rbac.persistence.entities;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -43,6 +47,13 @@ THE SOFTWARE.*/
 
 @Entity
 @Table(name="Roles")
+@NamedQueries({
+	@NamedQuery(name="Roles.loadAll", query="SELECT obj FROM Role obj ORDER BY name"),
+	@NamedQuery(name="Roles.loadNonConflictingRolesForUser",
+			query="SELECT obj FROM Role obj INNER JOIN obj.assignedUsers user " +
+				"WHERE user.id = :userId AND length(obj.dynamicSeparations) = 0 " +
+				"ORDER BY obj.name")
+})
 public class Role {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -56,12 +67,12 @@ public class Role {
 	 * These are the members assined to this role. Initially this would be an 
 	 * empty collection.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="AssignedUsers",
 			joinColumns={@JoinColumn(name="role_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")}
 	)
-	private List<User> assignedUsers;
+	private Set<User> assignedUsers;
 	
 	/**
 	 * These are all direct descendants of this role.
@@ -87,11 +98,11 @@ public class Role {
 	@ManyToMany(mappedBy="roles")
 	private List<DynamicSeparationDuty> dynamicSeparations;
 	
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="AssignedPermissions",
 			joinColumns={@JoinColumn(name="role_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="permission_id", referencedColumnName="id")})
-	private List<Permission> permissions;
+	private Set<Permission> permissions;
 
 	public Integer getId() {
 		return id;
@@ -109,11 +120,11 @@ public class Role {
 		this.name = name;
 	}
 	
-	public List<User> getAssignedUsers() {
+	public Set<User> getAssignedUsers() {
 		return assignedUsers;
 	}
 
-	public void setAssignedUsers(List<User> assignedUsers) {
+	public void setAssignedUsers(Set<User> assignedUsers) {
 		this.assignedUsers = assignedUsers;
 	}	
 	
@@ -141,11 +152,27 @@ public class Role {
 		this.ascendants = ascendants;
 	}
 	
-	public List<Permission> getPermissions() {
+	public Set<Permission> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(List<Permission> permissions) {
+	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
 	}	
+	
+	/**
+	 * A role is equal with another role only by equality of name
+	 * or primary key.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Role) {
+			Role role = Role.class.cast(obj);
+			
+			return role.getId() == this.getId() ||
+				this.getName().equalsIgnoreCase(role.getName());
+		}
+		
+		return super.equals(obj);
+	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -125,5 +126,23 @@ public class UsersDaoImpl implements UsersDao {
 		}
 		
 		logger.info(String.format("JPA stopped %s active sessions for user %s.", id));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteUser(Integer userId) {
+		logger.info(String.format("JPA removing user %s.", userId));
+		
+		User user = getEntityManager().find(User.class, userId);
+		
+		if(user == null) {
+			throw new NoResultException(String.format("User %s not found.", userId));
+		}
+		
+		// TODO remove user from other entities that hold reference to user.
+		
+		getEntityManager().remove(user);
 	}
 }

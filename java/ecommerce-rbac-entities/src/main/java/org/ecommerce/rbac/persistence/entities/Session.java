@@ -2,7 +2,9 @@ package org.ecommerce.rbac.persistence.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -48,14 +51,21 @@ THE SOFTWARE.*/
 @Table(name="Sessions")
 @NamedQueries({
 	@NamedQuery(name="Sessions.loadActiveSessionsByUser", 
-			query="SELECT obj FROM Session obj INNER JOIN obj.sessionUsers user " +
-				"WHERE obj.active = 1 AND user.id = :userId")
+			query="SELECT obj FROM Session obj " +
+				"WHERE obj.active = 1 AND obj.user.id = :userId"),
+	@NamedQuery(name="Sessions.loadSessionsByUser",
+			query="SELECT obj FROM Session obj " +
+				"WHERE obj.user.id = :userId AND (obj.active = :active OR :active IS NULL)")
 })
 public class Session {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id", referencedColumnName="id")
+	private User user;
 	
 	@Column(name="active")
 	private boolean active;
@@ -72,22 +82,13 @@ public class Session {
 	/**
 	 * These are all roles activated within the current session.
 	 */
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="SessionRoles",
 			joinColumns={@JoinColumn(name="session_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
 	)
-	private List<Role> sessionRoles;
+	private Set<Role> sessionRoles;
 
-	/**
-	 * These are all users belonging to a specified session.
-	 */
-	@ManyToMany
-	@JoinTable(name="UserSessions",
-			joinColumns={@JoinColumn(name="session_id", referencedColumnName="id")},
-			inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})
-	private List<User> sessionUsers;
-	
 	public Integer getId() {
 		return id;
 	}
@@ -96,6 +97,14 @@ public class Session {
 		this.id = id;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}	
+	
 	public boolean isActive() {
 		return active;
 	}
@@ -128,11 +137,11 @@ public class Session {
 		this.remoteSession = remoteSession;
 	}
 	
-	public List<Role> getSessionRoles() {
+	public Set<Role> getSessionRoles() {
 		return sessionRoles;
 	}
 
-	public void setSessionRoles(List<Role> sessionRoles) {
+	public void setSessionRoles(Set<Role> sessionRoles) {
 		this.sessionRoles = sessionRoles;
 	}	
 }

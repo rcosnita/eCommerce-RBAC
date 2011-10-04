@@ -1,6 +1,7 @@
 package org.ecommerce.rbac.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.ecommerce.rbac.persistence.entities.Permission;
 import org.ecommerce.rbac.persistence.entities.Role;
@@ -51,7 +52,7 @@ public interface SessionsDao {
 	 * @param onlyActive Only active flag.
 	 * @return
 	 */
-	public List<Role> loadSessionRoles(Integer sessionId, Boolean onlyActive);
+	public Set<Role> loadSessionRoles(Integer sessionId, Boolean onlyActive);
 	
 	/**
 	 * Method used to load all permissions belonging to a session.

@@ -88,4 +88,19 @@ public class Permission {
 	public void setObject(SecurityObject object) {
 		this.object = object;
 	}
+	
+	/**
+	 * Permissions equality is determined based on name or permision i.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Permission) {
+			Permission perms = Permission.class.cast(obj);
+			
+			return perms.getId() == this.getId() || 
+				perms.getName().equalsIgnoreCase(this.getName());
+		}
+		
+		return super.equals(obj);
+	}
 }
