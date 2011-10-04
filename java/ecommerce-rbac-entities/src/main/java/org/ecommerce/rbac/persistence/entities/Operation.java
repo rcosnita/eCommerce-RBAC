@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
-Copyright (C) 2001 by Radu Viorel Cosnita
+Copyright (C) 2011 by Radu Viorel Cosnita
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +40,9 @@ THE SOFTWARE.*/
 
 @Entity
 @Table(name="Operations")
+@NamedQueries({
+	@NamedQuery(name="Operations.loadAll", query="SELECT obj FROM Operation obj ORDER BY obj.name")
+})
 public class Operation {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

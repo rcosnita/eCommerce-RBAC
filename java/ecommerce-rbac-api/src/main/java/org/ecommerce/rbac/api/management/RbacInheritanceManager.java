@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
-Copyright (C) 2001 by Radu Viorel Cosnita
+Copyright (C) 2011 by Radu Viorel Cosnita
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

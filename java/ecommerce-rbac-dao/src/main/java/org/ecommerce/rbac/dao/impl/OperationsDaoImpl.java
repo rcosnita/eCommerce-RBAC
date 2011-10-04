@@ -8,8 +8,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.ecommerce.rbac.dao.SecurityObjectsDao;
-import org.ecommerce.rbac.persistence.entities.SecurityObject;
+import org.ecommerce.rbac.dao.OperationsDao;
+import org.ecommerce.rbac.persistence.entities.Operation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,16 +35,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
 /**
- * SecurityObjects DAO implementation.
+ * Operations DAO implementation.
  * 
  * @author Radu Viorel Cosnita
  * @version 1.0
  * @since 05.10.2011
  */
 
-@Repository("securityObjectsDaoBean")
-public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
-	private final static Logger logger = Logger.getLogger(SecurityObjectsDaoImpl.class.getName());
+@Repository("operationsDaoBean")
+public class OperationsDaoImpl implements OperationsDao {
+	private final static Logger logger = Logger.getLogger(OperationsDaoImpl.class.getName());
 	
 	private EntityManager entityManager;
 
@@ -61,10 +61,10 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<SecurityObject> loadAllObjects() {
-		logger.info("JPA loading all security objects.");
+	public List<Operation> loadAllOperations() {
+		logger.info("JPA loading all operations.");
 		
-		Query query = getEntityManager().createNamedQuery("SecurityObject.loadAll");
+		Query query = getEntityManager().createNamedQuery("Operations.loadAll");
 		
 		return query.getResultList();
 	}
@@ -73,16 +73,16 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public SecurityObject loadObjectById(Integer objectId) {
-		logger.info(String.format("JPA loading object %s.", objectId));
+	public Operation loadOperationById(Integer operationId) {
+		logger.info(String.format("JPA Loading operation %s.", operationId));
 		
-		SecurityObject object = getEntityManager().find(SecurityObject.class, objectId);
+		Operation operation = getEntityManager().find(Operation.class, operationId);
 		
-		if(object == null) {
-			throw new NoResultException(String.format("Object %s not found.", objectId));
+		if(operation == null) {
+			throw new NoResultException(String.format("Operation %s does not exist.", operationId));
 		}
 		
-		return object;
+		return operation;
 	}
 
 	/**
@@ -90,14 +90,14 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 */
 	@Override
 	@Transactional
-	public void createNewObject(SecurityObject object) {
-		logger.info(String.format("JPA creating new object %s.", object.getName()));
+	public void createNewOperation(Operation operation) {
+		logger.info(String.format("JPA creating operation %s.", operation.getName()));
 		
-		if(object.getId() != null) {
-			throw new UnsupportedOperationException("You must not specify object id.");
+		if(operation.getId() != null) {
+			throw new UnsupportedOperationException("You must not specify operation id.");
 		}
 		
-		getEntityManager().persist(object);
+		getEntityManager().persist(operation);
 	}
 
 	/**
@@ -105,14 +105,14 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 */
 	@Override
 	@Transactional
-	public void updateObject(SecurityObject object) {
-		logger.info(String.format("JPA creating new object %s.", object.getName()));
+	public void updateOperation(Operation operation) {
+		logger.info(String.format("JPA updating operation %s.", operation.getName()));
 		
-		if(object.getId() == null) {
-			throw new UnsupportedOperationException("You must specify object id.");
+		if(operation.getId() == null) {
+			throw new UnsupportedOperationException("You must specify operation id.");
 		}
 		
-		getEntityManager().merge(object);		
+		getEntityManager().merge(operation);	
 	}
 
 	/**
@@ -120,17 +120,15 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 */
 	@Override
 	@Transactional
-	public void removeObject(Integer objectId) {
-		logger.info(String.format("JPA removing object %s.", objectId));
+	public void removeOperation(Integer operationId) {
+		logger.info(String.format("JPA deleting operation %s.", operationId));
 		
-		SecurityObject object = getEntityManager().find(SecurityObject.class, objectId);
+		Operation operation = getEntityManager().find(Operation.class, operationId);
 		
-		if(object == null) {
-			throw new NoResultException(String.format("Object %s not found.", object));
+		if(operation == null) {
+			throw new NoResultException(String.format("Operation %s does not exist."));
 		}
 		
-		getEntityManager().remove(object);
+		getEntityManager().remove(operation);
 	}
-	
-	
 }
