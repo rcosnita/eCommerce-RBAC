@@ -35,4 +35,14 @@
             <ref bean="rbacObjectsService" />
         </jaxrs:serviceBeans>
     </jaxrs:server>
+    
+	<!-- Instantiating permissions rest service. -->
+    <jaxrs:server id="rbacPermissionsWS" address="/permissions">
+    	<jaxrs:providers>
+    		<ref bean="noResultExceptionMapperBean" />
+    	</jaxrs:providers>    
+        <jaxrs:serviceBeans>
+            <ref bean="rbacPermissionsService" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>    
 </beans>

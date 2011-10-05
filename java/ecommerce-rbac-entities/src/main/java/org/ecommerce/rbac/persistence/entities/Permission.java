@@ -111,6 +111,45 @@ public class Permission {
 	}	
 	
 	/**
+	 * Method used to transform the current entity to a transferable
+	 * permission.
+	 * 
+	 * @return
+	 */
+	public org.ecommerce.rbac.dto.Permission toPermissionDTO() {
+		org.ecommerce.rbac.dto.Permission ret = new org.ecommerce.rbac.dto.Permission();
+		
+		ret.setId(this.getId());
+		ret.setName(this.getName());
+		ret.setObject(this.getObject().toSecurityObjectDTO());
+		ret.setOperation(this.getOperation().toOperationDTO());
+		
+		return ret;
+	}	
+	
+	/**
+	 * Method used to convert a transferable permission to an entity.
+	 */
+	public static Permission valueOf(org.ecommerce.rbac.dto.Permission perm) {
+		Permission ret = new Permission();
+		
+		ret.setId(perm.getId());
+		ret.setName(perm.getName());
+		
+		if(perm.getObject() != null) {
+			ret.setObject(new SecurityObject());
+			ret.getObject().setId(perm.getObject().getId());
+		}
+		
+		if(perm.getOperation() != null) {
+			ret.setOperation(new Operation());
+			ret.getOperation().setId(perm.getOperation().getId());
+		}
+		
+		return ret;
+	}
+	
+	/**
 	 * Permissions equality is determined based on name or permision i.
 	 */
 	@Override

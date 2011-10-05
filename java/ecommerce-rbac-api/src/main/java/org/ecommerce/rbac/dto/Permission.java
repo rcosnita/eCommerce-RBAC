@@ -64,7 +64,7 @@ public class Permission implements Serializable {
 	public void setOperation(Operation operation) {
 		this.operation = operation;
 	}
-	
+		
 	@Override
 	public String toString() {
 		return String.format("RBAC permission %s:%s.", this.getId(), this.getName());

@@ -1,12 +1,14 @@
 package org.ecommerce.rbac.api.management;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.Operation;
 import org.ecommerce.rbac.dto.Permission;
@@ -46,8 +48,8 @@ THE SOFTWARE.*/
  */
 
 @Path("/")
-@Produces("applications/json")
-@Consumes("applications/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface RbacPermissionsManager {
 	/**
 	 * Method used to load all permissions currently defined in RBAC system.
@@ -114,4 +116,13 @@ public interface RbacPermissionsManager {
 	public void updateExistingPermission(
 			@PathParam("permissionId") Integer permissionId,
 			Permission permission);
+	
+	/**
+	 * Method used to remove the specified permission.
+	 * 
+	 * @param permissionId Permission unique identifier.
+	 */
+	@Path("/{permissionId}")
+	@DELETE
+	public void removePermission(@PathParam("permissionId") Integer permissionId);
 }
