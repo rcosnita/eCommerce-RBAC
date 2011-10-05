@@ -70,10 +70,8 @@ public class RbacOperationsManagerImpl implements RbacOperationsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void createNewOperation(Integer operationId, Operation operation) {
-		logger.info(String.format("Creating operation %s.", operationId));
-		
-		operation.setId(operationId);
+	public void createNewOperation(Operation operation) {
+		logger.info(String.format("Creating operation %s.", operation.getName()));
 		
 		operationsDAO.createNewOperation(
 				org.ecommerce.rbac.persistence.entities.Operation.valueOf(operation));

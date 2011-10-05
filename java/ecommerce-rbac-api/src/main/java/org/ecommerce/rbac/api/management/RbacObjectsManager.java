@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.SecurityObject;
 import org.ecommerce.rbac.dto.SecurityObjects;
@@ -45,8 +46,8 @@ THE SOFTWARE.*/
  */
 
 @Path("/")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface RbacObjectsManager {
 	/**
 	 * Method used to obtain all objects defined in the RBAC system.
@@ -70,14 +71,11 @@ public interface RbacObjectsManager {
 	/**
 	 * Method used to create a new RBAC object.
 	 * 
-	 * @param objectId Object unique identifier.
 	 * @param object An instance of SecurityObject.
 	 */
-	@Path("/{objectId}")
+	@Path("/")
 	@POST
-	public void createNewObject(
-			@PathParam("objectId") Integer objectId,
-			SecurityObject object);
+	public void createNewObject(SecurityObject object);
 	
 	/**
 	 * Method used to update an existing RBAC object.

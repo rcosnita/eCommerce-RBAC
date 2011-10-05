@@ -17,7 +17,7 @@
 
     <bean id="rbacEmfBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="rbacDataSource" />
-        <property name="persistenceXmlLocation" value="classpath*:/org/ecommerce/rbac/entities/persistence.xml" />
+        <property name="persistenceXmlLocation" value="classpath*:/org/ecommerce/rbac/persistence/persistence.xml" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.Operations;
 import org.ecommerce.rbac.dto.Permissions;
@@ -48,7 +49,8 @@ THE SOFTWARE.*/
  */
 
 @Path("/")
-@Produces({"application/json"})
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface RbacUsersManager {
 	/**
 	 * Method used to obtain all currently defined users.

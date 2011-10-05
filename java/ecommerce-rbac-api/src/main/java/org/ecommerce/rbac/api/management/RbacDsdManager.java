@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.DynamicSeparationRule;
 import org.ecommerce.rbac.dto.DynamicSeparationRules;
@@ -49,8 +50,8 @@ THE SOFTWARE.*/
  */
 
 @Path("/")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface RbacDsdManager {
 	/**
 	 * Method used to load all defined dynamic separation of duty rules.

@@ -10,9 +10,6 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:META-INF/cxf/cxf.xml,
-			classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml,
-			classpath:META-INF/cxf/cxf-extension-soap.xml,
-			classpath:META-INF/cxf/cxf-servlet.xml,
 			/WEB-INF/webservices-ds-context.xml,
 			/WEB-INF/webservices-dao-context.xml,
 			/WEB-INF/webservices-context.xml</param-value>

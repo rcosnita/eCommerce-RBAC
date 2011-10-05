@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.Operation;
 import org.ecommerce.rbac.dto.Operations;
@@ -45,8 +46,8 @@ THE SOFTWARE.*/
  */
 
 @Path("/")
-@Produces("applications/json")
-@Consumes("applications/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface RbacOperationsManager {
 	/**
 	 * Method used to load all defined operations.
@@ -71,14 +72,11 @@ public interface RbacOperationsManager {
 	/**
 	 * Method used to create a new operation.
 	 * 
-	 * @param operationId Operation unique identifier.
 	 * @param operation An instance of Operation.
 	 */
-	@Path("/{operationId}")
+	@Path("/")
 	@POST
-	public void createNewOperation(
-			@PathParam("operationId") Integer operationId,
-			Operation operation);
+	public void createNewOperation(Operation operation);
 	
 	/**
 	 * Method used to update an existing operation.
