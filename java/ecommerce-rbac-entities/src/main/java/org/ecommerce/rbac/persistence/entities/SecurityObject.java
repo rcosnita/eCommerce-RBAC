@@ -68,4 +68,33 @@ public class SecurityObject {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Method used to transform this entity to a transferable object. 
+	 * 
+	 * @return
+	 */
+	public org.ecommerce.rbac.dto.SecurityObject toSecurityObjectDTO() {
+		org.ecommerce.rbac.dto.SecurityObject ret = new org.ecommerce.rbac.dto.SecurityObject();
+		
+		ret.setId(this.getId());
+		ret.setName(this.getName());
+		
+		return ret;
+	}
+	
+	/**
+	 * Method used to transform a transferable object into an entity.
+	 * 
+	 * @param object SecurityObject dto instance.
+	 * @return
+	 */
+	public static SecurityObject valueOf(org.ecommerce.rbac.dto.SecurityObject object) {
+		SecurityObject ret = new SecurityObject();
+		
+		ret.setId(object.getId());
+		ret.setName(object.getName());
+		
+		return ret;
+	}
 }
