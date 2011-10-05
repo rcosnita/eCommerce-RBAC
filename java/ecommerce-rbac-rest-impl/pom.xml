@@ -1,0 +1,159 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.ecommerce.rbac.api</groupId>
+	<artifactId>ecommerce-rbac-rest-impl</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>ecommerce-rbac-rest-impl</name>
+	<url>https://github.com/rcosnita/eCommerce-RBAC/wiki/Rest-api</url>
+
+	<parent>
+		<groupId>org.ecommerce.rbac.project</groupId>
+		<artifactId>ecommerce-rbac-project</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<developers>
+		<developer>
+			<id>rcosnita</id>
+			<name>Cosnita Radu Viorel</name>
+			<email>radu.cosnita@gmail.com</email>
+			<roles>
+				<role>Developer</role>
+				<role>Analyst</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-bundle-jaxrs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-asm</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>com.springsource.javax.mail</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- RBAC specific dependencies. -->
+		<dependency>
+			<groupId>org.ecommerce.rbac.api</groupId>
+			<artifactId>ecommerce-rbac-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ecommerce.rbac.persistence</groupId>
+			<artifactId>ecommerce-rbac-entities</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.ecommerce.rbac.dao</groupId>
+			<artifactId>ecommerce-rbac-dao</artifactId>
+			<scope>compile</scope>
+		</dependency>		
+	</dependencies>
+
+	<build>
+		<plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <configuration>
+                        <server>tomcat_local</server>
+                </configuration>
+            </plugin>		
+		</plugins>
+	
+		<finalName>ecommerce-rbac-impl</finalName>
+	</build>
+	
+    <profiles>
+        <profile>
+            <id>dev</id>
+            
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <datasource.driver>com.mysql.jdbc.Driver</datasource.driver>
+                <datasource.username>ecommerce_rbac</datasource.username>
+                <datasource.password>12345</datasource.password>
+                <datasource.url>jdbc:mysql://localhost:3306/ecommerce_rbac</datasource.url>
+            </properties>
+        </profile>
+    </profiles>	
+</project>

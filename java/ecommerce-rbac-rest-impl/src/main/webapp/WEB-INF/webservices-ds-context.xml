@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:annotation-config />
+
+    <bean id="rbacDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="@datasource.driver@" />
+        <property name="url" value="@datasource.url@" />
+        <property name="username" value="@datasource.username@" />
+        <property name="password" value="@datasource.password@" />
+    </bean>
+
+    <bean id="rbacEmfBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="rbacDataSource" />
+        <property name="persistenceXmlLocation" value="classpath*:/org/ecommerce/rbac/entities/persistence.xml" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="rbacEmfBean" />
+    </bean>
+
+    <tx:annotation-driven />
+</beans>

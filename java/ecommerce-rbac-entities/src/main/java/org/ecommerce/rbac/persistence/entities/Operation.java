@@ -67,4 +67,32 @@ public class Operation {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Method used to transform the current object into a transferable one.
+	 * 
+	 * @return
+	 */
+	public org.ecommerce.rbac.dto.Operation toOperationDTO() {
+		org.ecommerce.rbac.dto.Operation ret = new org.ecommerce.rbac.dto.Operation();
+
+		ret.setId(this.getId());
+		ret.setName(this.getName());
+		
+		return ret;
+	}
+	
+	/**
+	 * Method used to format a transferable object to an entity.
+	 * @param operation An operation instance.
+	 * @return
+	 */
+	public static Operation valueOf(org.ecommerce.rbac.dto.Operation operation) {
+		Operation ret = new Operation();
+		
+		ret.setId(operation.getId());
+		ret.setName(operation.getName());
+		
+		return ret;
+	}
 }

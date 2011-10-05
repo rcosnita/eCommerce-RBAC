@@ -22,6 +22,7 @@
 		<module>../ecommerce-rbac-api</module>
 		<module>../ecommerce-rbac-entities</module>
 		<module>../ecommerce-rbac-dao</module>
+		<module>../ecommerce-rbac-rest-impl</module>
 	</modules>
 
 	<dependencyManagement>
@@ -156,6 +157,13 @@
 				<version>1.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.ecommerce.rbac.dao</groupId>
+				<artifactId>ecommerce-rbac-dao</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>				
 		</dependencies>
 	</dependencyManagement>
 
