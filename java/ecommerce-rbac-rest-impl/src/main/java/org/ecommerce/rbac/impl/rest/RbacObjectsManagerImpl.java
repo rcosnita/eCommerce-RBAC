@@ -9,6 +9,7 @@ import org.ecommerce.rbac.dto.SecurityObject;
 import org.ecommerce.rbac.dto.SecurityObjects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -83,6 +84,7 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void createNewObject(SecurityObject object) {
 		logger.info(String.format("REST creating RBAC object %s.", object.getName()));
 		
@@ -93,6 +95,7 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void updateExistingObject(Integer objectId, SecurityObject object) {
 		logger.info(String.format("REST updating RBAC object %s.", object.getName()));
 		
@@ -103,6 +106,7 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public void removeObject(Integer objectId) {
 		logger.info(String.format("REST removing RBAC object %s.", objectId));
 		

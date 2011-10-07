@@ -9,7 +9,10 @@ import org.ecommerce.rbac.dto.Operation;
 import org.ecommerce.rbac.dto.Permission;
 import org.ecommerce.rbac.dto.Permissions;
 import org.ecommerce.rbac.dto.SecurityObject;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -112,7 +115,7 @@ public class RbacPermissionsManagerImpl implements RbacPermissionsManager {
 		
 		org.ecommerce.rbac.persistence.entities.Permission permEntity = 
 			org.ecommerce.rbac.persistence.entities.Permission.valueOf(permission);
-				
+		
 		permissionsDAO.createNewPermission(operationId, objectId, permEntity);
 	}
 

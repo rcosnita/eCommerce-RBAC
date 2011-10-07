@@ -7,4 +7,6 @@
        <context:annotation-config />
        
        <context:component-scan base-package="org.ecommerce.rbac.dao.impl" />
+       
+       <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 </beans>

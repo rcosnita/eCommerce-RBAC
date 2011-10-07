@@ -19,7 +19,8 @@
 	<!-- Instantiating operations rest service. -->
     <jaxrs:server id="rbacOperationsWS" address="/operations">
     	<jaxrs:providers>
-    		<ref bean="noResultExceptionMapperBean" />    		
+    		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />	
     	</jaxrs:providers>
         <jaxrs:serviceBeans>
             <ref bean="rbacOperationsService" />
@@ -30,6 +31,7 @@
     <jaxrs:server id="rbacObjectsWS" address="/objects">
     	<jaxrs:providers>
     		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
         <jaxrs:serviceBeans>
             <ref bean="rbacObjectsService" />
@@ -40,6 +42,7 @@
     <jaxrs:server id="rbacPermissionsWS" address="/permissions">
     	<jaxrs:providers>
     		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
         <jaxrs:serviceBeans>
             <ref bean="rbacPermissionsService" />
