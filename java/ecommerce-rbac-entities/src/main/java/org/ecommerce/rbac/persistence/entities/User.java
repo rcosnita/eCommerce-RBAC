@@ -74,6 +74,20 @@ public class User {
 	}
 	
 	/**
+	 * Method used to transform the current entity to a transferable
+	 * object.
+	 * 
+	 * @return
+	 */
+	public org.ecommerce.rbac.dto.User toUserDTO() {
+		org.ecommerce.rbac.dto.User user = new org.ecommerce.rbac.dto.User();
+		
+		user.setId(this.getId());
+		
+		return user;
+	}
+	
+	/**
 	 * Users equality is determined based on primary key.
 	 */
 	@Override

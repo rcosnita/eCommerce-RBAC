@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.PermissionsDao;
 import org.ecommerce.rbac.persistence.entities.Operation;
@@ -66,7 +67,8 @@ public class PermissionsDaoImpl implements PermissionsDao {
 	public List<Permission> loadAllPermissions() {
 		logger.info("JPA loading all permissions.");
 		
-		Query query = getEntityManager().createNamedQuery("Permissions.loadAll");
+		TypedQuery<Permission> query = getEntityManager().createNamedQuery("Permissions.loadAll",
+									Permission.class);
 		
 		return query.getResultList();
 	}

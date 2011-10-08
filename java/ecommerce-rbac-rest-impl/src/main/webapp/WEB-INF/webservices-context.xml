@@ -47,5 +47,16 @@
         <jaxrs:serviceBeans>
             <ref bean="rbacPermissionsService" />
         </jaxrs:serviceBeans>
-    </jaxrs:server>    
+    </jaxrs:server>
+    
+	<!-- Instantiating permissions rest service. -->
+    <jaxrs:server id="rbacRolesWS" address="/roles">
+    	<jaxrs:providers>
+    		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />
+    	</jaxrs:providers>    
+        <jaxrs:serviceBeans>
+            <ref bean="rbacRolesManagerService" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 </beans>

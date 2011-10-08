@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.SecurityObjectsDao;
 import org.ecommerce.rbac.persistence.entities.SecurityObject;
@@ -64,7 +64,8 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	public List<SecurityObject> loadAllObjects() {
 		logger.info("JPA loading all security objects.");
 		
-		Query query = getEntityManager().createNamedQuery("SecurityObject.loadAll");
+		TypedQuery<SecurityObject> query = 
+			getEntityManager().createNamedQuery("SecurityObject.loadAll", SecurityObject.class);
 		
 		return query.getResultList();
 	}

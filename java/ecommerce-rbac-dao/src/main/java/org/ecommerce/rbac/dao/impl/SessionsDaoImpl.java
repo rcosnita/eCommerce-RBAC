@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.SessionsDao;
 import org.ecommerce.rbac.persistence.entities.Permission;
@@ -72,7 +72,8 @@ public class SessionsDaoImpl implements SessionsDao {
 		logger.info(String.format("Loading all sessions for user %s --- onlyActive: %s",
 						userId, onlyActive));
 		
-		Query query = getEntityManager().createNamedQuery("Sessions.loadSessionsByUser");
+		TypedQuery<Session> query = 
+			getEntityManager().createNamedQuery("Sessions.loadSessionsByUser", Session.class);
 		query.setParameter("userId", userId);
 		query.setParameter("active", onlyActive);
 		
@@ -154,13 +155,14 @@ public class SessionsDaoImpl implements SessionsDao {
 		session.setStartDate((new GregorianCalendar()).getTime());
 		
 		if(activateRoles) {
-			Query query = getEntityManager().createNamedQuery("Roles.loadNonConflictingRolesForUser");
+			TypedQuery<Role> query = 
+				getEntityManager().createNamedQuery("Roles.loadNonConflictingRolesForUser", Role.class);
 			query.setParameter("userId", userId);
 			
 			List<Role> roles = query.getResultList();
 			
 			Set<Role> rolesSet = new HashSet<Role>();
-			rolesSet.addAll(rolesSet);
+			rolesSet.addAll(roles);
 			
 			session.setSessionRoles(rolesSet);
 		}

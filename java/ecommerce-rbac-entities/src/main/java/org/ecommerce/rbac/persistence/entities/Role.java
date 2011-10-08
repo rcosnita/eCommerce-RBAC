@@ -67,7 +67,7 @@ public class Role {
 	 * These are the members assined to this role. Initially this would be an 
 	 * empty collection.
 	 */
-	@ManyToMany(cascade={CascadeType.ALL})
+	@ManyToMany
 	@JoinTable(name="AssignedUsers",
 			joinColumns={@JoinColumn(name="role_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")}
@@ -98,8 +98,8 @@ public class Role {
 	@ManyToMany(mappedBy="roles")
 	private List<DynamicSeparationDuty> dynamicSeparations;
 	
-	@ManyToMany(cascade={CascadeType.ALL})
-	@JoinTable(name="AssignedPermissions",
+	@ManyToMany
+	@JoinTable(name="AssignedPermissions", 
 			joinColumns={@JoinColumn(name="role_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="permission_id", referencedColumnName="id")})
 	private Set<Permission> permissions;
@@ -159,6 +159,36 @@ public class Role {
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
 	}	
+	
+	/**
+	 * Method used to transform the current entity to a transferable
+	 * object.
+	 * 
+	 * @return
+	 */
+	public org.ecommerce.rbac.dto.Role toRoleDTO() {
+		org.ecommerce.rbac.dto.Role role = new org.ecommerce.rbac.dto.Role();
+		
+		role.setId(this.getId());
+		role.setName(this.getName());
+		
+		return role;
+	}
+	
+	/**
+	 * Method used to transform the specified dto to an entity.
+	 * 
+	 * @param role Role dto instance.
+	 * @return
+	 */
+	public static Role valueOf(org.ecommerce.rbac.dto.Role role) {
+		Role ret = new Role();
+		
+		ret.setId(role.getId());
+		ret.setName(role.getName());
+		
+		return ret;
+	}
 	
 	/**
 	 * A role is equal with another role only by equality of name

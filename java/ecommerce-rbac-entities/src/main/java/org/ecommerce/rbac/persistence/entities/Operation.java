@@ -1,5 +1,7 @@
 package org.ecommerce.rbac.persistence.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -41,7 +44,13 @@ THE SOFTWARE.*/
 @Entity
 @Table(name="Operations")
 @NamedQueries({
-	@NamedQuery(name="Operations.loadAll", query="SELECT obj FROM Operation obj ORDER BY obj.name")
+	@NamedQuery(name="Operations.loadAll", query="SELECT obj FROM Operation obj ORDER BY obj.name"),
+	@NamedQuery(name="Operations.loadAllowedForRoleObject",
+			query="SELECT oper FROM Operation oper " +
+				"INNER JOIN oper.permissions perm " +
+				"INNER JOIN perm.roles role " +
+				"INNER JOIN perm.object obj " +
+				"WHERE obj.id = :objectId and role.id = :roleId")
 })
 public class Operation {
 	@Id
@@ -51,6 +60,9 @@ public class Operation {
 	
 	@Column(name="name")
 	private String name;
+	
+	@OneToMany(mappedBy="operation")
+	private List<Permission> permissions;
 
 	public Integer getId() {
 		return id;
@@ -67,6 +79,14 @@ public class Operation {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}	
 	
 	/**
 	 * Method used to transform the current object into a transferable one.

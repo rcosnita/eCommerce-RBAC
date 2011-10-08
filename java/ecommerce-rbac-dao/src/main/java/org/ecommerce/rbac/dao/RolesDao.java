@@ -1,7 +1,12 @@
 package org.ecommerce.rbac.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
+
+import org.ecommerce.rbac.persistence.entities.Operation;
 import org.ecommerce.rbac.persistence.entities.Role;
 
 /**
@@ -50,6 +55,17 @@ public interface RolesDao {
 	public Role loadRoleById(Integer roleId);
 	
 	/**
+	 * Method used to load all roles operations allowed for a specified
+	 * object.
+	 * 
+	 * @param roleId Role unique identifier.
+	 * @param objectId RBAC object unique identifier.
+	 * @return
+	 */
+	public List<Operation> loadRoleOperationsAllowedForObject(Integer roleId, 
+				Integer objectId);
+	
+	/**
 	 * Method used to create a new role.
 	 * 
 	 * @param role Role instance.
@@ -73,7 +89,7 @@ public interface RolesDao {
 	 * @param roleId Role unique identifier.
 	 * @param users A list of users.
 	 */
-	public void assingUsersToRole(Integer roleId, List<Integer> users);
+	public void assignUsersToRole(Integer roleId, List<Integer> users);
 	
 	/**
 	 * Method used to assign a list of permissions to a specified role.

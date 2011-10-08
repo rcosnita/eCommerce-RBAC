@@ -7,9 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.OperationsDao;
 import org.ecommerce.rbac.persistence.entities.Operation;
+import org.ecommerce.rbac.persistence.entities.Role;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +66,8 @@ public class OperationsDaoImpl implements OperationsDao {
 	public List<Operation> loadAllOperations() {
 		logger.info("JPA loading all operations.");
 		
-		Query query = getEntityManager().createNamedQuery("Operations.loadAll");
+		TypedQuery<Operation> query = getEntityManager().createNamedQuery("Operations.loadAll",
+											Operation.class);
 		
 		return query.getResultList();
 	}

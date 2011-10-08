@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.ecommerce.rbac.dto.Identifiers;
 import org.ecommerce.rbac.dto.Operations;
 import org.ecommerce.rbac.dto.Permissions;
 import org.ecommerce.rbac.dto.Role;
@@ -111,14 +112,11 @@ public interface RbacRolesManager {
 	/**
 	 * Method used to create a new role.
 	 * 
-	 * @param roleId Role unique identifier.
 	 * @param role An instance of role object we want to create.
 	 */
-	@Path("/{roleId}")
+	@Path("/")
 	@POST
-	public void createNewRole(
-			@PathParam("roleId") Integer roleId, 
-			Role role);
+	public void createNewRole(Role role);
 	
 	/**
 	 * Method used to update an existing role.
@@ -143,7 +141,7 @@ public interface RbacRolesManager {
 	@PUT
 	public void assignUsersToRole(
 			@PathParam("roleId") Integer roleId,
-			List<Integer> users
+			Identifiers users
 	);
 	
 	/**
@@ -156,7 +154,7 @@ public interface RbacRolesManager {
 	@PUT
 	public void assignPermissionsToRole(
 			@PathParam("roleId") Integer roleId,
-			List<Integer> permissions
+			Identifiers permissions
 	);
 	
 	/**

@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.UsersDao;
 import org.ecommerce.rbac.persistence.entities.Session;
@@ -65,7 +65,8 @@ public class UsersDaoImpl implements UsersDao {
 	public List<User> loadAllUsers() {
 		logger.info("JPA loading all RBAC users.");
 				
-		Query query = getEntityManager().createNamedQuery("Users.loadAll");
+		TypedQuery<User> query = 
+			getEntityManager().createNamedQuery("Users.loadAll", User.class);
 		
 		return query.getResultList();
 	}
@@ -113,7 +114,8 @@ public class UsersDaoImpl implements UsersDao {
 	public void stopUserSessions(Integer id) {
 		logger.info(String.format("JPA stop all active sessions for user %s.", id));
 		
-		Query query = getEntityManager().createNamedQuery("Sessions.loadActiveSessionsByUser");
+		TypedQuery<Session> query = 
+			getEntityManager().createNamedQuery("Sessions.loadActiveSessionsByUser", Session.class);
 		query.setParameter("userId", id);
 		
 		List<Session> sessions = query.getResultList();

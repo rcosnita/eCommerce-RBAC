@@ -6,9 +6,10 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.RolesDao;
+import org.ecommerce.rbac.persistence.entities.Operation;
 import org.ecommerce.rbac.persistence.entities.Permission;
 import org.ecommerce.rbac.persistence.entities.Role;
 import org.ecommerce.rbac.persistence.entities.User;
@@ -66,7 +67,7 @@ public class RolesDaoImpl implements RolesDao {
 	public List<Role> loadAllRoles() {
 		logger.info("JPA loading all rbac roles.");
 		
-		Query query = getEntityManager().createNamedQuery("Roles.loadAll");
+		TypedQuery<Role> query = getEntityManager().createNamedQuery("Roles.loadAll", Role.class);
 		
 		return query.getResultList();
 	}
@@ -116,7 +117,7 @@ public class RolesDaoImpl implements RolesDao {
 	 */
 	@Override
 	@Transactional
-	public void assingUsersToRole(Integer roleId, List<Integer> users) {
+	public void assignUsersToRole(Integer roleId, List<Integer> users) {
 		logger.info(String.format("JPA assign %s users to role %s.", users.size(), roleId));
 		
 		Role role = getEntityManager().find(Role.class, roleId);
@@ -227,5 +228,23 @@ public class RolesDaoImpl implements RolesDao {
 		}
 		
 		getEntityManager().merge(role);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Operation> loadRoleOperationsAllowedForObject(Integer roleId,
+			Integer objectId) {
+		logger.info(String.format("JPA loading allowed operations for object %s under role %s.",
+						objectId, roleId));
+		
+		TypedQuery<Operation> query = 
+			getEntityManager().createNamedQuery("Operations.loadAllowedForRoleObject", Operation.class);
+		
+		query.setParameter("roleId", roleId);
+		query.setParameter("objectId", objectId);
+		
+		return query.getResultList();
 	}
 }
