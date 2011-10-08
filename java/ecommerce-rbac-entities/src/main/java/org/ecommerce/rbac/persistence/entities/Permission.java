@@ -48,7 +48,11 @@ THE SOFTWARE.*/
 @Table(name="Permissions")
 @NamedQueries({
 	@NamedQuery(name="Permissions.loadAll", 
-			query="SELECT perm FROM Permission perm ORDER BY perm.name")
+			query="SELECT perm FROM Permission perm ORDER BY perm.name"),
+	@NamedQuery(name="Permissions.loadUserPermissions",
+			query="SELECT perm FROM Permission perm INNER JOIN perm.roles role " +
+				"INNER JOIN role.assignedUsers user " +
+				"WHERE user.id = :userId")
 })
 public class Permission {
 	@Id

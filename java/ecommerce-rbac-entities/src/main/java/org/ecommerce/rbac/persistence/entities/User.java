@@ -88,6 +88,20 @@ public class User {
 	}
 	
 	/**
+	 * Method used to transform a transferable user to an entity.
+	 * 
+	 * @param user A dto user instance.
+	 * @return
+	 */
+	public static User valueOf(org.ecommerce.rbac.dto.User user) {
+		User ret = new User();
+		
+		ret.setId(user.getId());
+		
+		return ret;
+	}
+	
+	/**
 	 * Users equality is determined based on primary key.
 	 */
 	@Override

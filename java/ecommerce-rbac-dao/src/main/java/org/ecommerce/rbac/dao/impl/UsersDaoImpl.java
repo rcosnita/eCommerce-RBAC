@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.UsersDao;
+import org.ecommerce.rbac.persistence.entities.Operation;
+import org.ecommerce.rbac.persistence.entities.Permission;
 import org.ecommerce.rbac.persistence.entities.Session;
 import org.ecommerce.rbac.persistence.entities.User;
 import org.springframework.stereotype.Repository;
@@ -80,6 +82,37 @@ public class UsersDaoImpl implements UsersDao {
 		
 		return getEntityManager().find(User.class, id);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Permission> loadUserPermissions(Integer userId) {
+		logger.info(String.format("JPA load all permissions belonging to user %s.", userId));
+				
+		TypedQuery<Permission> query = 
+			getEntityManager().createNamedQuery("Permissions.loadUserPermissions", Permission.class);
+		query.setParameter("userId", userId);
+		
+		return query.getResultList();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Operation> loadUserOperationForObject(Integer userId,
+			Integer objectId) {
+		logger.info(String.format("JPA load all operations for object %s belonging to user %s.",
+				objectId, userId));
+		
+		TypedQuery<Operation> query = 
+			getEntityManager().createNamedQuery("Operations.loadUserOperationsForObject", Operation.class);
+		query.setParameter("userId", userId);
+		query.setParameter("objectId", objectId);
+		
+		return query.getResultList();
+	}	
 	
 	/**
 	 * {@inheritDoc}

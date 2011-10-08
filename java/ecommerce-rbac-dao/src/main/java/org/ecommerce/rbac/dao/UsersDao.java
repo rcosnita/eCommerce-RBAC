@@ -2,6 +2,10 @@ package org.ecommerce.rbac.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
+import org.ecommerce.rbac.persistence.entities.Operation;
+import org.ecommerce.rbac.persistence.entities.Permission;
 import org.ecommerce.rbac.persistence.entities.User;
 
 /**
@@ -47,6 +51,23 @@ public interface UsersDao {
 	 * @return
 	 */
 	public User loadUserById(Integer id);
+	
+	/**
+	 * Method used to load all permissions for a specified user.
+	 * 
+	 * @param userId User unique identifier.
+	 * @return
+	 */
+	public List<Permission> loadUserPermissions(Integer userId);
+	
+	/**
+	 * Method used to load all operations for an object assigned to an user.
+	 * 
+	 * @param userId User unique identifier.
+	 * @param objectId Object unique identifier.
+	 * @return
+	 */
+	public List<Operation> loadUserOperationForObject(Integer userId, Integer objectId);
 	
 	/**
 	 * Method used to create a new user.
