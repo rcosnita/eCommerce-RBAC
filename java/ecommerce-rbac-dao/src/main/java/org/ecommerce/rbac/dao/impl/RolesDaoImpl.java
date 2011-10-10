@@ -109,7 +109,10 @@ public class RolesDaoImpl implements RolesDao {
 			throw new UnsupportedOperationException("You must specify an existing role.");
 		}
 		
-		getEntityManager().merge(role);
+		Role roleEntity = this.loadRoleById(role.getId());
+		roleEntity.setName(role.getName());
+		
+		getEntityManager().merge(roleEntity);
 	}
 
 	/**

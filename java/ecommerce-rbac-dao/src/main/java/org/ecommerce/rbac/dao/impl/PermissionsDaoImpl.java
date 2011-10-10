@@ -127,7 +127,10 @@ public class PermissionsDaoImpl implements PermissionsDao {
 			throw new UnsupportedOperationException("You must specify permission id.");
 		}
 		
-		getEntityManager().merge(permission);
+		Permission permEntity = this.loadPermissionById(permission.getId());
+		permEntity.setName(permission.getName());
+		
+		getEntityManager().merge(permEntity);
 	}
 
 	/**

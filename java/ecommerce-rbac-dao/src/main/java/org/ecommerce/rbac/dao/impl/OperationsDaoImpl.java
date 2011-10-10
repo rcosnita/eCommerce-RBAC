@@ -115,7 +115,10 @@ public class OperationsDaoImpl implements OperationsDao {
 			throw new UnsupportedOperationException("You must specify operation id.");
 		}
 		
-		getEntityManager().merge(operation);	
+		Operation operationEntity = this.loadOperationById(operation.getId());
+		operationEntity.setName(operation.getName());
+		
+		getEntityManager().merge(operationEntity);	
 	}
 
 	/**

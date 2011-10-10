@@ -113,7 +113,10 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 			throw new UnsupportedOperationException("You must specify object id.");
 		}
 		
-		getEntityManager().merge(object);		
+		SecurityObject objEntity = this.loadObjectById(object.getId());
+		objEntity.setName(object.getName());
+		
+		getEntityManager().merge(objEntity);		
 	}
 
 	/**
