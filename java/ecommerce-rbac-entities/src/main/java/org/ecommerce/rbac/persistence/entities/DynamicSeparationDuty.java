@@ -14,6 +14,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.ecommerce.rbac.dto.DynamicSeparationRule;
+
 /**
 Copyright (C) 2011 by Radu Viorel Cosnita
 
@@ -101,5 +103,36 @@ public class DynamicSeparationDuty {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
-	}	
+	}
+	
+	/**
+	 * Method used to transform this entity to a transferable object.
+	 * 
+	 * @return
+	 */
+	public DynamicSeparationRule toDynamicSeparationDTO() {
+		DynamicSeparationRule rule = new DynamicSeparationRule();
+		
+		rule.setId(this.getId());
+		rule.setName(this.getName());
+		rule.setCardinality(this.getCardinality());
+		
+		return rule;
+	}
+	
+	/**
+	 * Method used to obtain an entity from a DTO object.
+	 * 
+	 * @param rule
+	 * @return
+	 */
+	public static DynamicSeparationDuty valueOf(DynamicSeparationRule rule) {
+		DynamicSeparationDuty ret = new DynamicSeparationDuty();
+		
+		ret.setId(rule.getId());
+		ret.setName(rule.getName());
+		ret.setCardinality(rule.getCardinality());
+		
+		return ret;
+	}
 }

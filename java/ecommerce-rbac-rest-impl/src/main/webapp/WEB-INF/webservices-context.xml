@@ -70,4 +70,15 @@
             <ref bean="rbacUsersService" />
         </jaxrs:serviceBeans>
     </jaxrs:server>
+    
+	<!-- Instantiating dsd rest service. -->
+	<jaxrs:server id="rbacDsdWS" address="/dsd">
+    	<jaxrs:providers>
+    		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />
+    	</jaxrs:providers>    
+        <jaxrs:serviceBeans>
+            <ref bean="rbacDsdService" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 </beans>

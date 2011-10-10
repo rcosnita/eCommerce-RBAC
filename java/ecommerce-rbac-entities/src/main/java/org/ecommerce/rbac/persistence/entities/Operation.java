@@ -53,7 +53,7 @@ THE SOFTWARE.*/
 				"WHERE obj.id = :objectId and role.id = :roleId"),
 	@NamedQuery(name="Operations.loadUserOperationsForObject",
 			query="SELECT oper FROM Operation oper " +
-				"INNER JOIN oper.permission perm " +
+				"INNER JOIN oper.permissions perm " +
 				"INNER JOIN perm.object obj " +
 				"INNER JOIN perm.roles role " +
 				"INNER JOIN role.assignedUsers user " +

@@ -82,6 +82,10 @@ public class DynamicSeparationDutyDaoImpl implements DynamicSeparationDutyDao {
 			throw new UnsupportedOperationException("You must not specify id.");
 		}
 		
+		if(roles.size() < 2) {
+			throw new UnsupportedOperationException("A DSD must contain at least two roles.");
+		}
+		
 		Set<Role> rolesEntity = new HashSet<Role>();
 		
 		for(Integer roleId : roles) {
@@ -92,7 +96,7 @@ public class DynamicSeparationDutyDaoImpl implements DynamicSeparationDutyDao {
 		}
 		
 		dsd.setRoles(rolesEntity);
-		
+				
 		getEntityManager().persist(dsd);
 	}
 
@@ -131,7 +135,11 @@ public class DynamicSeparationDutyDaoImpl implements DynamicSeparationDutyDao {
 			throw new UnsupportedOperationException("You must specify a dsd identifier.");
 		}
 		
-		getEntityManager().merge(dsd);
+		DynamicSeparationDuty dsdEntity = this.loadDsdById(dsd.getId());
+		dsdEntity.setName(dsd.getName());
+		dsdEntity.setCardinality(dsd.getCardinality());
+		
+		getEntityManager().merge(dsdEntity);
 	}
 
 	/**
@@ -164,13 +172,17 @@ public class DynamicSeparationDutyDaoImpl implements DynamicSeparationDutyDao {
 		
 		if(dsd == null) {
 			throw new NoResultException(String.format("JPA RBAC dsd %s does not exist.", dsdId));
-		}
+		}		
 		
 		for(Integer roleId : roles) {
 			Role role = new Role();
 			role.setId(roleId);
 			
 			dsd.getRoles().remove(role);
+		}
+		
+		if(dsd.getRoles().size() < 2) {
+			throw new UnsupportedOperationException("A DSD must containt at least two roles.");
 		}
 		
 		getEntityManager().merge(dsd);

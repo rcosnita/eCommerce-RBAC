@@ -10,6 +10,7 @@ import org.ecommerce.rbac.dto.Permissions;
 import org.ecommerce.rbac.dto.Roles;
 import org.ecommerce.rbac.dto.User;
 import org.ecommerce.rbac.dto.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +49,7 @@ public class RbacUsersManagerImpl implements RbacUsersManager {
 	
 	private UsersDao usersDAO;
 	
+	@Autowired
 	public RbacUsersManagerImpl(UsersDao usersDAO) {
 		this.usersDAO = usersDAO;
 	}

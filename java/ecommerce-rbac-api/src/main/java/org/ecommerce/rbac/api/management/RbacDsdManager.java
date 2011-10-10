@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.DynamicSeparationRule;
 import org.ecommerce.rbac.dto.DynamicSeparationRules;
+import org.ecommerce.rbac.dto.Identifiers;
 import org.ecommerce.rbac.dto.Roles;
 
 /**
@@ -87,12 +88,14 @@ public interface RbacDsdManager {
 	 * 
 	 * @param dsdName DSD name.
 	 * @param cardinality DSD allowed cardinality. >= 2.
+	 * @param roles A list of roles identifiers we want to assign to dsd.
 	 */
 	@Path("/{dsdName}/{cardinality}")
 	@POST
 	public void createNewDsd(
 			@PathParam("dsdName") String dsdName,
-			@PathParam("cardinality") Integer cardinality
+			@PathParam("cardinality") Integer cardinality,
+			Identifiers roles
 	);
 	
 	/**
