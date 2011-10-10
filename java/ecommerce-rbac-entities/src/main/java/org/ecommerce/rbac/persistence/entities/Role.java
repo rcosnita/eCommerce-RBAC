@@ -81,7 +81,7 @@ public class Role {
 	@JoinTable(name="RolesInheritance",
 			joinColumns={@JoinColumn(name="role_parent", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="role_child", referencedColumnName="id")})
-	private List<Role> descendants;
+	private Set<Role> descendants;
 
 	/**
 	 * These are all direct ascendants of this role.
@@ -90,13 +90,13 @@ public class Role {
 	@JoinTable(name="RolesInheritance",
 			joinColumns={@JoinColumn(name="role_child", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="role_parent", referencedColumnName="id")})
-	private List<Role> ascendants;
+	private Set<Role> ascendants;
 	
 	/**
 	 * Here we can access all DSD in which this role appears.
 	 */
 	@ManyToMany(mappedBy="roles")
-	private List<DynamicSeparationDuty> dynamicSeparations;
+	private Set<DynamicSeparationDuty> dynamicSeparations;
 	
 	@ManyToMany
 	@JoinTable(name="AssignedPermissions", 
@@ -128,27 +128,27 @@ public class Role {
 		this.assignedUsers = assignedUsers;
 	}	
 	
-	public List<DynamicSeparationDuty> getDynamicSeparations() {
+	public Set<DynamicSeparationDuty> getDynamicSeparations() {
 		return dynamicSeparations;
 	}
 
-	public void setDynamicSeparations(List<DynamicSeparationDuty> dynamicSeparations) {
+	public void setDynamicSeparations(Set<DynamicSeparationDuty> dynamicSeparations) {
 		this.dynamicSeparations = dynamicSeparations;
 	}
 	
-	public List<Role> getDescendants() {
+	public Set<Role> getDescendants() {
 		return descendants;
 	}
 
-	public void setDescendants(List<Role> descendants) {
+	public void setDescendants(Set<Role> descendants) {
 		this.descendants = descendants;
 	}
 
-	public List<Role> getAscendants() {
+	public Set<Role> getAscendants() {
 		return ascendants;
 	}
 
-	public void setAscendants(List<Role> ascendants) {
+	public void setAscendants(Set<Role> ascendants) {
 		this.ascendants = ascendants;
 	}
 	
