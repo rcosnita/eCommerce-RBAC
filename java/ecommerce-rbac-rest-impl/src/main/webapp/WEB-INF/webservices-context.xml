@@ -81,4 +81,15 @@
             <ref bean="rbacDsdService" />
         </jaxrs:serviceBeans>
     </jaxrs:server>
+    
+	<!-- Instantiating inheritance rest service. -->
+	<jaxrs:server id="rbacInheritanceWS" address="/roles/inheritance">
+    	<jaxrs:providers>
+    		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />
+    	</jaxrs:providers>    
+        <jaxrs:serviceBeans>
+            <ref bean="rbacInheritanceService" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 </beans>
