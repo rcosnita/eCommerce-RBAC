@@ -55,9 +55,8 @@ public interface DynamicSeparationDutyDao {
 	 * 
 	 * @param dsd DSD instance.
 	 * @param roles A list of roles unique identifiers.
-	 * @return
 	 */
-	public DynamicSeparationDuty createNewDsd(DynamicSeparationDuty dsd, List<Integer> roles);
+	public void createNewDsd(DynamicSeparationDuty dsd, List<Integer> roles);
 	
 	/**
 	 * Method used to assign new roles to a specified dsd.

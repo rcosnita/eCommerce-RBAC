@@ -1,6 +1,6 @@
 package org.ecommerce.rbac.persistence.entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -43,6 +45,10 @@ THE SOFTWARE.*/
 
 @Entity
 @Table(name="DynamicSeparationDutySet")
+@NamedQueries({
+	@NamedQuery(name="DSD.loadAll", 
+			query="SELECT obj FROM DynamicSeparationDuty obj ORDER BY obj.name")
+})
 public class DynamicSeparationDuty {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -63,7 +69,7 @@ public class DynamicSeparationDuty {
 	@JoinTable(name="DynamicSeparationDutySetRoles",
 			joinColumns={@JoinColumn(name="dsd_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
-	private List<Role> roles;
+	private Set<Role> roles;
 	
 	public Integer getId() {
 		return id;
@@ -89,11 +95,11 @@ public class DynamicSeparationDuty {
 		this.cardinality = cardinality;
 	}
 	
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}	
 }
