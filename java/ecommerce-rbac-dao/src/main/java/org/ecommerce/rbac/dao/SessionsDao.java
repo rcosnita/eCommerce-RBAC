@@ -81,18 +81,23 @@ public interface SessionsDao {
 	 * if flag activateRoles is enabled.
 	 * 
 	 * @param userId User unique identifier.
-	 * @param activateRoles
+	 * @param activateRoles Flag that signal activation of non conflicting roles.
+	 * @param remoteSession This is a remote session unique identifier (jsessionid possibly).
 	 * @return
 	 */
-	public Integer createUserSession(Integer userId, Boolean activateRoles);
+	public Integer createUserSession(Integer userId, Boolean activateRoles,
+			String remoteSession);
 	
 	/**
 	 * Method used to activate a new role within the current session.
 	 * 
 	 * @param sessionId Session unique identifier.
 	 * @param roleId Role unique identifier.
+	 * @param useInheritance Flag used to determine if activation of descendants is desired 
+	 * 		or not.
 	 */
-	public void activateSessionRole(Integer sessionId, Integer roleId);
+	public void activateSessionRole(Integer sessionId, Integer roleId,
+			boolean useInheritance);
 	
 	/**
 	 * Method used to stop a specified session.

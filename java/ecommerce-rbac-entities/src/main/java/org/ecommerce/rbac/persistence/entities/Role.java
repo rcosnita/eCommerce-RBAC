@@ -52,7 +52,11 @@ THE SOFTWARE.*/
 	@NamedQuery(name="Roles.loadNonConflictingRolesForUser",
 			query="SELECT obj FROM Role obj INNER JOIN obj.assignedUsers user " +
 				"WHERE user.id = :userId AND length(obj.dynamicSeparations) = 0 " +
-				"ORDER BY obj.name")
+				"ORDER BY obj.name"),
+	@NamedQuery(name="Roles.loadNonConflictingDescendants",
+			query="SELECT role FROM Role role INNER JOIN role.descendants role_desc " + 
+				"WHERE role_desc.dynamicSeparations IS EMPTY AND " +
+					"role.id = :roleId")
 })
 public class Role {
 	@Id

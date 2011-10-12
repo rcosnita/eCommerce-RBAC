@@ -143,5 +143,20 @@ public class Session {
 
 	public void setSessionRoles(Set<Role> sessionRoles) {
 		this.sessionRoles = sessionRoles;
-	}	
+	}
+	
+	/**
+	 * Method used to transform the entity to a transferable object.
+	 * @return
+	 */
+	public org.ecommerce.rbac.dto.Session toSessionDTO() {
+		org.ecommerce.rbac.dto.Session session = new org.ecommerce.rbac.dto.Session();
+		session.setId(this.getId());
+		session.setStartTime(this.getStartDate());
+		session.setEndTime(this.getEndDate());
+		session.setActive(this.isActive());
+		session.setRemoteSession(this.getRemoteSession());
+		
+		return session;
+	}
 }

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.SessionsDao;
@@ -138,11 +139,32 @@ public class SessionsDaoImpl implements SessionsDao {
 	}
 
 	/**
+	 * Method used to obtain all descendants that are don't have any DSD assigned.
+	 * 
+	 * @param parentRole
+	 * @param descendants This is the set that collect all non conflicting roles keeping track
+	 * 		of inheritance ierarchy
+	 */
+	private void obtainAllNonConflictingDescendants(Role parentRole, Set<Role> descendants) {
+		Query query = getEntityManager().createNamedQuery("Roles.loadNonConflictingDescendants");
+		query.setParameter("roleId", parentRole.getId());
+		
+		List<Role> roles = query.getResultList();
+		
+		descendants.add(parentRole);
+		
+		for(Role role : roles) {
+			obtainAllNonConflictingDescendants(role, descendants);
+		}
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@Transactional
-	public Integer createUserSession(Integer userId, Boolean activateRoles) {
+	public Integer createUserSession(Integer userId, Boolean activateRoles,
+			String remoteSession) {
 		logger.info(String.format("JPA create new session for user %s. Activate roles? %s",
 				userId, activateRoles));
 	
@@ -153,6 +175,7 @@ public class SessionsDaoImpl implements SessionsDao {
 		session.setUser(user);
 		session.setActive(true);
 		session.setStartDate((new GregorianCalendar()).getTime());
+		session.setRemoteSession(remoteSession);
 		
 		if(activateRoles) {
 			TypedQuery<Role> query = 
@@ -163,6 +186,10 @@ public class SessionsDaoImpl implements SessionsDao {
 			
 			Set<Role> rolesSet = new HashSet<Role>();
 			rolesSet.addAll(roles);
+			
+			for(Role role : roles) {
+				obtainAllNonConflictingDescendants(role, rolesSet);
+			}
 			
 			session.setSessionRoles(rolesSet);
 		}
@@ -177,7 +204,8 @@ public class SessionsDaoImpl implements SessionsDao {
 	 */
 	@Override
 	@Transactional
-	public void activateSessionRole(Integer sessionId, Integer roleId) {
+	public void activateSessionRole(Integer sessionId, Integer roleId, 
+			boolean useInheritance) {
 		logger.info(String.format("Activate role %s within session %s.",
 				sessionId, roleId));
 		
@@ -189,8 +217,16 @@ public class SessionsDaoImpl implements SessionsDao {
 		
 		Role role = new Role();
 		role.setId(roleId);
-		
+
 		session.getSessionRoles().add(role);
+		
+		if(useInheritance) {
+			Set<Role> nonConflictingDescendants = new HashSet<Role>();
+			
+			obtainAllNonConflictingDescendants(role, nonConflictingDescendants);
+			
+			session.getSessionRoles().addAll(nonConflictingDescendants);
+		}
 		
 		getEntityManager().merge(session);
 	}

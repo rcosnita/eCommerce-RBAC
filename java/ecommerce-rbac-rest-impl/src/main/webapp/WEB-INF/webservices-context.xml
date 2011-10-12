@@ -92,4 +92,15 @@
             <ref bean="rbacInheritanceService" />
         </jaxrs:serviceBeans>
     </jaxrs:server>
+    
+	<!-- Instantiating sessions rest service. -->
+	<jaxrs:server id="rbaSessionsWS" address="/sessions">
+    	<jaxrs:providers>
+    		<ref bean="noResultExceptionMapperBean" />
+    		<ref bean="constraintViolationExceptionBean" />
+    	</jaxrs:providers>    
+        <jaxrs:serviceBeans>
+            <ref bean="rbacSessionsService" />
+        </jaxrs:serviceBeans>
+    </jaxrs:server>    
 </beans>

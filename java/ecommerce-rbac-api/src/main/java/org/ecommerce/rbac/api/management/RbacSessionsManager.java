@@ -110,26 +110,31 @@ public interface RbacSessionsManager {
 	 * @param userId User unique identifier.
 	 * @param activateRoles (Optional) flag used to force RBAC to activate by default all non conflicting
 	 * 		roles. Not a standard feature of RBAC.
+	 * @param remoteSession This is the remote session identifier. In most cases it will be a hash probably.
 	 * @return The newly started session for the user.
 	 */
 	@Path("/{userId}")
 	@POST
 	public Integer startUserSession(
 			@PathParam("userId") Integer userId,
-			@QueryParam("activateRoles") boolean activateRoles);
+			@QueryParam("activateRoles") boolean activateRoles,
+			@QueryParam("remoteSession") String remoteSession);
 	
 	/**
-	 * Method used to activate a role within a specified session.
+	 * Method used to activate a role within a specified session. It also
+	 * activates all descendants. Really cool for working with hierarchical RBAC.
 	 * 
 	 * @param sessionId Session unique identifier.
 	 * @param roleId Role unique identifier.
+	 * @param useInheritance Flag used to activate roles all from hierarchy of roleId.
 	 * @return
 	 */
 	@Path("/{sessionId}/roles/{roleId}")
 	@PUT
 	public void activateSessionRole(
 			@PathParam("sessionId") Integer sessionId,
-			@PathParam("roleId") Integer roleId);
+			@PathParam("roleId") Integer roleId,
+			@QueryParam("useInheritance") boolean useInheritance);
 	
 	/**
 	 * Method used to stop a specified session.
