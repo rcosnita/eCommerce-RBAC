@@ -7,7 +7,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<description>This is the api for ecommerce rbac. You can find the api and the transferable objects used within
   	ecommerce role based access control solution.</description>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 
 	<name>ecommerce-rbac-api</name>
 	<url>https://github.com/rcosnita/eCommerce-RBAC/wiki/Rest-api</url>
@@ -39,6 +39,7 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-bundle-jaxrs</artifactId>
+			<version>2.2.9</version>
 		</dependency>
 		
 		<dependency>
@@ -46,4 +47,62 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>1.4.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<obrRepository>NONE</obrRepository>
+					<manifestLocation>src/main/resources/META-INF</manifestLocation>
+					<instructions>
+						<Export-Package>org.ecommerce.rbac.api, 
+							org.ecommerce.rbac.api.management,
+							org.ecommerce.rbac.dto</Export-Package>
+						<Import-Package>*</Import-Package>
+						<Private-Package></Private-Package>
+						<Include-Resource>src/main/resources</Include-Resource>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>bundle-ant</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<delete dir="META-INF" />
+								<mkdir dir="META-INF"/>
+								<copy todir="META-INF">
+									<fileset dir="src/main/resources/META-INF" includes="*/**" />
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>		
+		</plugins>
+	</build>
 </project>
