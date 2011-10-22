@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.ecommerce.rbac.integration.springdm</groupId>
+    <artifactId>ecommerce-rbac-rest-springdm</artifactId>
+    <packaging>bundle</packaging>
+    <name>rbac-rest-springdm-client</name>
+    <version>1.0-SNAPSHOT</version>
+    <url>http://www.springframework.org/osgi</url>
+    <description>This is the rbac integration layer compatible with osgi spring dm environment.</description>
+
+	<properties>
+		<apache.cxf.version>2.2.9</apache.cxf.version>
+	</properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle-minimal</artifactId>
+            <version>${apache.cxf.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+          	<groupId>org.ecommerce.rbac.api</groupId>
+           	<artifactId>ecommerce-rbac-api</artifactId>
+           	<version>1.0-SNAPSHOT</version>
+           	<scope>provided</scope>
+		</dependency>        		
+    </dependencies>
+
+    <build>
+        <resources>
+            <!-- standard Maven folder -->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!-- plus root folder -->
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>plugin.xml</include>
+                    <include>META-INF/*</include>
+                </includes>
+            </resource>
+        </resources>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>1.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <obrRepository>NONE</obrRepository>
+                    <manifestLocation>src/main/resources/META-INF</manifestLocation>
+                    <instructions>
+                    	<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Export-Package></Export-Package>
+                        <Import-Package>org.apache.cxf.jaxrs.client,
+                        	javax.ws.rs.core,
+                        	org.apache.cxf.jaxrs.utils, 
+                        	org.ecommerce.rbac.api, 
+							org.ecommerce.rbac.api.management,
+							org.ecommerce.rbac.dto, *</Import-Package>
+                        <Private-Package>org.ecommerce.rbac.integration.springdm.rest</Private-Package>
+                        <Include-Resource>src/main/resources</Include-Resource>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>bundle-ant</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<delete dir="META-INF" />
+								<mkdir dir="META-INF"/>
+								<copy todir="META-INF">
+									<fileset dir="src/main/resources/META-INF" includes="*/**" />
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>            
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- regular spring configuration file defining the beans for this bundle. 
+		The configuration of OSGi definitions is kept in a separate configuration 
+		file so that this file can easily be used for integration testing outside 
+		of an OSGi environment -->
+	<import resource="classpath*:/META-INF/cxf/cxf.xml" />
+
+	<!-- Here we define all jaxrs client proxies. -->	
+	<jaxrs:client id="rbacUsersManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/users"	         	         
+	         serviceClass="org.ecommerce.rbac.api.management.RbacUsersManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>  	
+    
+	<jaxrs:client id="rbacRolesManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/roles"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacRolesManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>
+    
+	<jaxrs:client id="rbacObjectsManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/objects"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacObjectsManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>
+    
+	<jaxrs:client id="rbacOperationsManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/operations"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacOperationsManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>
+    
+	<jaxrs:client id="rbacPermissionsManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/permissions"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacPermissionsManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>    
+    
+	<jaxrs:client id="rbacSessionsManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/sessions"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacSessionsManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>    
+    
+	<jaxrs:client id="rbacDsdManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/dsd"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacDsdManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>    
+    
+	<jaxrs:client id="rbacInheritanceManager"
+	         address="http://localhost:8080/ecommerce-rbac-rest-impl/rest/roles/inheritance"
+	         serviceClass="org.ecommerce.rbac.api.management.RbacInheritanceManager"
+	         inheritHeaders="true">
+	         <jaxrs:headers>
+	             <entry key="Accept" value="application/json" />
+	             <entry key="Content-Type" value="application/json" />
+	         </jaxrs:headers>
+    </jaxrs:client>
+    
+    <!-- Instantiate all components -->
+<!--    <bean id="rbacManagerImpl" class="com.dmsmart.ws.rest.portal.security.client.impl.RbacManagerImpl">
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacUsersManager" ref="rbacUsersManager" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacRolesManager" ref="rbacRolesManager" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacObjectsManager" ref="rbacObjectsManager" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacOperationsManager" ref="rbacOperationsManager" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacPermissionsManager" ref="rbacPermissionsManager" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacSessionsManager" ref="rbacSessionsManager" />
+    </bean>
+    
+    <bean id="rbacClient" class="com.dmsmart.ws.rest.portal.security.client.impl.RbacImpl">
+    	<constructor-arg type="com.dmsmart.ws.rest.portal.security.client.impl.RbacManagerImpl" ref="rbacManagerImpl" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacDsdManager" ref="rbacDsdManager" />
+    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacInheritanceManager" ref="rbacInheritanceManager" />
+    </bean>-->
+    
+    <context:annotation-config />
+    <context:component-scan base-package="*" />
+</beans>
