@@ -94,21 +94,23 @@
     </jaxrs:client>
     
     <!-- Instantiate all components -->
-<!--    <bean id="rbacManagerImpl" class="com.dmsmart.ws.rest.portal.security.client.impl.RbacManagerImpl">
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacUsersManager" ref="rbacUsersManager" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacRolesManager" ref="rbacRolesManager" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacObjectsManager" ref="rbacObjectsManager" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacOperationsManager" ref="rbacOperationsManager" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacPermissionsManager" ref="rbacPermissionsManager" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacSessionsManager" ref="rbacSessionsManager" />
+    <bean id="rbacManagerImpl" class="org.ecommerce.rbac.integration.springdm.rest.RbacManagerImpl">
+    	<constructor-arg index="0" ref="rbacUsersManager" />
+    	<constructor-arg index="1" ref="rbacRolesManager" />
+    	<constructor-arg index="2" ref="rbacObjectsManager" />
+    	<constructor-arg index="3" ref="rbacOperationsManager" />
+    	<constructor-arg index="4" ref="rbacPermissionsManager" />
+    	<constructor-arg index="5" ref="rbacSessionsManager" />
     </bean>
     
-    <bean id="rbacClient" class="com.dmsmart.ws.rest.portal.security.client.impl.RbacImpl">
-    	<constructor-arg type="com.dmsmart.ws.rest.portal.security.client.impl.RbacManagerImpl" ref="rbacManagerImpl" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacDsdManager" ref="rbacDsdManager" />
-    	<constructor-arg type="org.ecommerce.rbac.api.management.RbacInheritanceManager" ref="rbacInheritanceManager" />
-    </bean>-->
+    <bean id="rbacClient" class="org.ecommerce.rbac.integration.springdm.rest.RbacImpl">
+    	<constructor-arg index="0" ref="rbacManagerImpl" />
+    	<constructor-arg index="1" ref="rbacDsdManager" />
+    	<constructor-arg index="2" ref="rbacInheritanceManager" />
+    </bean>
     
     <context:annotation-config />
-    <context:component-scan base-package="*" />
+    
+    <!--  <context:annotation-config />
+    <context:component-scan base-package="*" />-->
 </beans>
