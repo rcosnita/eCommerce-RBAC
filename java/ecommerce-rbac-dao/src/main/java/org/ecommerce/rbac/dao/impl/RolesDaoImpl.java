@@ -86,6 +86,19 @@ public class RolesDaoImpl implements RolesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Role loadRoleByName(String roleName) {
+		logger.info(String.format("JPA loading role %s.", roleName));
+		
+		TypedQuery<Role> q = getEntityManager().createNamedQuery("Roles.loadByName", Role.class);
+		q.setParameter("roleName", roleName);
+			
+		return q.getSingleResult();
+	}	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	@Transactional
 	public void createNewRole(Role role) {
 		logger.info(String.format("JPA create role %s.", role.getName()));

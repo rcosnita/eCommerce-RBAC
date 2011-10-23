@@ -23,6 +23,7 @@
 		<module>../ecommerce-rbac-entities</module>
 		<module>../ecommerce-rbac-dao</module>
 		<module>../ecommerce-rbac-rest-impl</module>
+		<module>../integration/rbac-rest-springdm-client</module>
 	</modules>
 
 	<dependencyManagement>

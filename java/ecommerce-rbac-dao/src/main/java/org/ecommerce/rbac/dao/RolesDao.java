@@ -55,6 +55,14 @@ public interface RolesDao {
 	public Role loadRoleById(Integer roleId);
 	
 	/**
+	 * Method used to load a role by name.
+	 * 
+	 * @param roleName Role name.
+	 * @return
+	 */
+	public Role loadRoleByName(String roleName);
+	
+	/**
 	 * Method used to load all roles operations allowed for a specified
 	 * object.
 	 * 

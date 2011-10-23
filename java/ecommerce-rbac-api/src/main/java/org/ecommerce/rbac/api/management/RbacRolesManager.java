@@ -76,6 +76,16 @@ public interface RbacRolesManager {
 	public Role loadRoleById(@PathParam("roleId") Integer roleId);
 	
 	/**
+	 * Method used to load a role from RBAC system starting from role name.
+	 * 
+	 * @param roleName Role name.
+	 * @return
+	 */
+	@Path("/{roleName}")
+	@GET
+	public Role loadRoleByName(@PathParam("roleName") String roleName);
+	
+	/**
 	 * Return all users belonging to a specified role.
 	 * 
 	 * @param roleId

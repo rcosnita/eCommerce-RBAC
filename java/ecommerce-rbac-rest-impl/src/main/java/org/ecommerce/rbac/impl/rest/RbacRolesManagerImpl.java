@@ -84,6 +84,16 @@ public class RbacRolesManagerImpl implements RbacRolesManager {
 		
 		return rolesDAO.loadRoleById(roleId).toRoleDTO();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Role loadRoleByName(String roleName) {
+		logger.info(String.format("REST loading RBAC role %s.", roleName));
+		
+		return rolesDAO.loadRoleByName(roleName).toRoleDTO();
+	}
 
 	/**
 	 * {@inheritDoc}
