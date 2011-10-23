@@ -69,4 +69,22 @@ public class Permission implements Serializable {
 	public String toString() {
 		return String.format("RBAC permission %s:%s.", this.getId(), this.getName());
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Integer) {
+			return this.getId() == Integer.class.cast(obj);
+		}
+		else if(obj instanceof String) {
+			return this.getName().equalsIgnoreCase(obj.toString());
+		}
+		else if(obj instanceof Permission) {
+			Permission perm = Permission.class.cast(obj);
+			
+			return perm.getId() == this.getId() ||
+				this.getName().equalsIgnoreCase(perm.getName());
+		}
+		
+		return super.equals(obj);
+	}
 }
