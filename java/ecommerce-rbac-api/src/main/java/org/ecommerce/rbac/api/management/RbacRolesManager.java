@@ -81,7 +81,7 @@ public interface RbacRolesManager {
 	 * @param roleName Role name.
 	 * @return
 	 */
-	@Path("/{roleName}")
+	@Path("/byname/{roleName}")
 	@GET
 	public Role loadRoleByName(@PathParam("roleName") String roleName);
 	
