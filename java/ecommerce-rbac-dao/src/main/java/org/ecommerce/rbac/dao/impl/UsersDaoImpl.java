@@ -1,5 +1,6 @@
 package org.ecommerce.rbac.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -69,6 +70,21 @@ public class UsersDaoImpl implements UsersDao {
 				
 		TypedQuery<User> query = 
 			getEntityManager().createNamedQuery("Users.loadAll", User.class);
+		
+		return query.getResultList();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<User> loadAllUsers(int pageSize, int startRecord) {
+		logger.info(String.format("JPA loading %d RBAC users starting from record %d.", pageSize, startRecord));
+		
+		TypedQuery<User> query = 
+			getEntityManager().createNamedQuery("Users.loadAll", User.class);
+		query.setFirstResult(startRecord);
+		query.setMaxResults(pageSize);
 		
 		return query.getResultList();
 	}

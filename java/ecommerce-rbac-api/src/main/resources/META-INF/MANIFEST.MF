@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Export-Package: org.ecommerce.rbac.api.management;uses:="javax.ws.rs,o
+ rg.ecommerce.rbac.dto",org.ecommerce.rbac.api;uses:="org.ecommerce.rb
+ ac.api.management",org.ecommerce.rbac.dto;uses:="javax.xml.bind.annot
+ ation"
+Built-By: rcosnita
+Tool: Bnd-0.0.238
+Bundle-Name: ecommerce-rbac-api
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.6.0_26
+Bundle-Version: 1.0.0.SNAPSHOT
+Bnd-LastModified: 1346224688997
+Bundle-ManifestVersion: 2
+Bundle-Description: This is the api for ecommerce rbac. You can find t
+ he api and the transferable objects used within  	ecommerce role base
+ d access control solution.
+Import-Package: javax.ws.rs,javax.xml.bind.annotation,org.ecommerce.rb
+ ac.api,org.ecommerce.rbac.api.management,org.ecommerce.rbac.dto
+Bundle-SymbolicName: org.ecommerce.rbac.api.ecommerce-rbac-api
+Originally-Created-By: Apache Maven Bundle Plugin
+

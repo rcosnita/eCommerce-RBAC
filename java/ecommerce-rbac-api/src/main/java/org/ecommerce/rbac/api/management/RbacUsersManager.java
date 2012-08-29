@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.Operations;
@@ -60,6 +61,19 @@ public interface RbacUsersManager {
 	@Path("/")
 	@GET
 	public Users loadAllUsers();
+	
+	/**
+	 * Method used to obtain a slice of users based on a given page size and a start record.
+	 * 
+	 * @param pageSize This is the page size we want to use.
+	 * @param startRecord This is the start record we want to use.
+	 * @return
+	 */
+	@Path("/{startRecord}/{pageSize}/")
+	@GET
+	public Users loadAllUsers(
+			@PathParam("pageSize") int pageSize,
+			@PathParam("startRecord") int startRecord);
 	
 	/**
 	 * Method used to get an user from RBAC system by id.

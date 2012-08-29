@@ -45,6 +45,15 @@ public interface UsersDao {
 	public List<User> loadAllUsers();
 	
 	/**
+	 * Method used to obtain from database a slice of users.
+	 *  
+	 * @param pageSize
+	 * @param startRecord
+	 * @return
+	 */
+	public List<User> loadAllUsers(int pageSize, int startRecord);
+	
+	/**
 	 * Method used to load a specified user.
 	 * 
 	 * @param id User unique identifier.

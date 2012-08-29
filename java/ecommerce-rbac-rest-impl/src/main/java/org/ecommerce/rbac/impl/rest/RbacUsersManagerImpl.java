@@ -77,6 +77,25 @@ public class RbacUsersManagerImpl implements RbacUsersManager {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Users loadAllUsers(int pageSize, int startRecord) {
+		logger.info(String.format("REST loading all defined RBAC users: (%d, %d)", pageSize, startRecord));
+		
+		Users ret = new Users();
+		
+		List<org.ecommerce.rbac.persistence.entities.User> users =
+				usersDAO.loadAllUsers(pageSize, startRecord);
+			
+		for(org.ecommerce.rbac.persistence.entities.User user : users) {
+			ret.getUsers().add(user.toUserDTO());
+		}
+			
+		return ret;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public User loadUserById(Integer userId) {
 		logger.info(String.format("REST loading RBAC user %s.", userId));
 		
