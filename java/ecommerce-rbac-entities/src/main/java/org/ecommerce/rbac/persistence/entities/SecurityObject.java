@@ -42,7 +42,9 @@ THE SOFTWARE.*/
 @Table(name="Objects")
 @NamedQueries({
 	@NamedQuery(name="SecurityObject.loadAll", 
-			query="SELECT obj FROM SecurityObject obj ORDER BY obj.name")
+			query="SELECT obj FROM SecurityObject obj ORDER BY obj.name"),
+	@NamedQuery(name="SecurityObject.loadAllPaginated",
+			query="SELECT obj FROM SecurityObject obj WHERE obj.name LIKE CONCAT('%', :searchQuery, '%') ORDER BY obj.name")
 })
 public class SecurityObject {
 	@Id

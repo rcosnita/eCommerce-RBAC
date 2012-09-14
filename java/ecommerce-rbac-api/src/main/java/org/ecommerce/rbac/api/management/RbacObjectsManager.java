@@ -8,6 +8,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.SecurityObject;
@@ -69,7 +70,8 @@ public interface RbacObjectsManager {
 	@GET
 	public SecurityObjects loadAllObjects(
 		@PathParam("startRecord") int startRecord,
-		@PathParam("pageSize") int pageSize);
+		@PathParam("pageSize") int pageSize,
+		@QueryParam("searchQuery") String searchCriteria);
 	
 	/**
 	 * Method used to load a specified object from RBAC.

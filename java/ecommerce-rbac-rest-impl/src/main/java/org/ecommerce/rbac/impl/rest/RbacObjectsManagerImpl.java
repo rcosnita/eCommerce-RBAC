@@ -74,11 +74,11 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public SecurityObjects loadAllObjects(int startRecord, int pageSize) {
+	public SecurityObjects loadAllObjects(int startRecord, int pageSize, String searchQuery) {
 		logger.info(String.format("REST loading %s RBAC objects starting from %s", pageSize, startRecord));
 		
 		List<org.ecommerce.rbac.persistence.entities.SecurityObject> objects = 
-				objectsDAO.loadAllObjects(startRecord, pageSize);
+				objectsDAO.loadAllObjects(startRecord, pageSize, searchQuery);
 		
 		SecurityObjects ret = new SecurityObjects();
 		

@@ -74,11 +74,12 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<SecurityObject> loadAllObjects(int startRecord, int pageSize) {
-		logger.info(String.format("JPA loading %s security objects starting from %s.", pageSize, startRecord));
+	public List<SecurityObject> loadAllObjects(int startRecord, int pageSize, String searchQuery) {
+		logger.info(String.format("JPA loading %s security objects starting from %s.", pageSize, startRecord, searchQuery));
 		
 		TypedQuery<SecurityObject> query = 
-			getEntityManager().createNamedQuery("SecurityObject.loadAll", SecurityObject.class);
+			getEntityManager().createNamedQuery("SecurityObject.loadAllPaginated", SecurityObject.class);
+		query.setParameter("searchQuery", searchQuery);
 		query.setFirstResult(startRecord);
 		query.setMaxResults(pageSize);		
 		

@@ -45,10 +45,11 @@ public interface SecurityObjectsDao {
 	 * 
 	 * @param startRecord The record from which we start retrieving objects.
 	 * @param pageSize The number of objects we want to retrieve.
+	 * @param searchQuery The text used for matching object name against.
 	 * 
 	 * @return
 	 */
-	public List<SecurityObject> loadAllObjects(int startRecord, int pageSize);	
+	public List<SecurityObject> loadAllObjects(int startRecord, int pageSize, String searchQuery);	
 	
 	/**
 	 * Method used to load a specified object.
