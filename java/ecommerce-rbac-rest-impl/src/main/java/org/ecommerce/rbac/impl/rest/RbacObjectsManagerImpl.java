@@ -69,6 +69,25 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 		
 		return ret;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SecurityObjects loadAllObjects(int startRecord, int pageSize) {
+		logger.info(String.format("REST loading %s RBAC objects starting from %s", pageSize, startRecord));
+		
+		List<org.ecommerce.rbac.persistence.entities.SecurityObject> objects = 
+				objectsDAO.loadAllObjects(startRecord, pageSize);
+		
+		SecurityObjects ret = new SecurityObjects();
+		
+		for(org.ecommerce.rbac.persistence.entities.SecurityObject object : objects) {
+			ret.getObjects().add(object.toSecurityObjectDTO());
+		}
+		
+		return ret;
+	}
 
 	/**
 	 * {@inheritDoc}

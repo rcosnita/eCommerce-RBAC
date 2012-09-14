@@ -41,6 +41,16 @@ public interface SecurityObjectsDao {
 	public List<SecurityObject> loadAllObjects();
 	
 	/**
+	 * Method used to retrieve a slice of objects from database.
+	 * 
+	 * @param startRecord The record from which we start retrieving objects.
+	 * @param pageSize The number of objects we want to retrieve.
+	 * 
+	 * @return
+	 */
+	public List<SecurityObject> loadAllObjects(int startRecord, int pageSize);	
+	
+	/**
 	 * Method used to load a specified object.
 	 * 
 	 * @param objectId Object unique identifier.

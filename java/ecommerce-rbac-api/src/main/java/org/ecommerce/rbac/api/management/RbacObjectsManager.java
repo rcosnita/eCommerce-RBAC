@@ -50,13 +50,26 @@ THE SOFTWARE.*/
 @Consumes(MediaType.APPLICATION_JSON)
 public interface RbacObjectsManager {
 	/**
-	 * Method used to obtain all objects defined in the RBAC system.
-	 *  
+	 * Method used to obtain all objects defined in RBAC system.
+	 * 
 	 * @return
 	 */
 	@Path("/")
 	@GET
 	public SecurityObjects loadAllObjects();
+	
+	/**
+	 * Method used to obtain all objects defined in the RBAC system.
+	 * 
+	 * @param startRecord the record from which we want to start retrieving objects.
+	 * @param pageSize the number of objects we want to retrieve.
+	 * @return
+	 */
+	@Path("/{startRecord}/{pageSize}/")
+	@GET
+	public SecurityObjects loadAllObjects(
+		@PathParam("startRecord") int startRecord,
+		@PathParam("pageSize") int pageSize);
 	
 	/**
 	 * Method used to load a specified object from RBAC.
