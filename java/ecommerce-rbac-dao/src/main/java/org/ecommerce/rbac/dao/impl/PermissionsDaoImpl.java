@@ -94,7 +94,7 @@ public class PermissionsDaoImpl implements PermissionsDao {
 	 */
 	@Override
 	@Transactional
-	public void createNewPermission(Integer operationId, Integer objectId,
+	public int createNewPermission(Integer operationId, Integer objectId,
 			Permission permission) {
 		logger.info(String.format("JPA create new permission connecting operation %s and object %s.",
 				operationId, objectId));
@@ -113,6 +113,8 @@ public class PermissionsDaoImpl implements PermissionsDao {
 		permission.setObject(object);
 		
 		getEntityManager().persist(permission);
+		
+		return permission.getId();
 	}
 
 	/**

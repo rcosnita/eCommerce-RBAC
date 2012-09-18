@@ -108,7 +108,7 @@ public class RbacPermissionsManagerImpl implements RbacPermissionsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void createNewPermissions(Integer operationId, Integer objectId,
+	public int createNewPermissions(Integer operationId, Integer objectId,
 			Permission permission) {
 		logger.info(String.format("REST creating RBAC permission from operation %s and object %s.",
 				operationId, objectId));
@@ -116,7 +116,9 @@ public class RbacPermissionsManagerImpl implements RbacPermissionsManager {
 		org.ecommerce.rbac.persistence.entities.Permission permEntity = 
 			org.ecommerce.rbac.persistence.entities.Permission.valueOf(permission);
 		
-		permissionsDAO.createNewPermission(operationId, objectId, permEntity);
+		int permissionId = permissionsDAO.createNewPermission(operationId, objectId, permEntity);
+		
+		return permissionId;
 	}
 
 	/**

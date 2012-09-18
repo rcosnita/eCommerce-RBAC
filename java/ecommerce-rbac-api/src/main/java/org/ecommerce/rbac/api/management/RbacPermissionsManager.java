@@ -100,7 +100,7 @@ public interface RbacPermissionsManager {
 	 */
 	@Path("{operationId}/{objectId}")
 	@POST
-	public void createNewPermissions(
+	public int createNewPermissions(
 			@PathParam("operationId") Integer operationId, 
 			@PathParam("objectId") Integer objectId,
 			Permission permission);

@@ -55,7 +55,7 @@ public interface PermissionsDao {
 	 * @param objectId Object unique identifier.
 	 * @param permission Permission instance.
 	 */
-	public void createNewPermission(
+	public int createNewPermission(
 			Integer operationId,
 			Integer objectId, 			
 			Permission permission);
