@@ -87,10 +87,11 @@ public interface RbacObjectsManager {
 	 * Method used to create a new RBAC object.
 	 * 
 	 * @param object An instance of SecurityObject.
+	 * @return The newly created object identifier.
 	 */
 	@Path("/")
 	@POST
-	public void createNewObject(SecurityObject object);
+	public int createNewObject(SecurityObject object);
 	
 	/**
 	 * Method used to update an existing RBAC object.

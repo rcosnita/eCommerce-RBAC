@@ -104,10 +104,10 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 	 */
 	@Override
 	@Transactional
-	public void createNewObject(SecurityObject object) {
+	public int createNewObject(SecurityObject object) {
 		logger.info(String.format("REST creating RBAC object %s.", object.getName()));
 		
-		objectsDAO.createNewObject(org.ecommerce.rbac.persistence.entities.SecurityObject.valueOf(object));
+		return objectsDAO.createNewObject(org.ecommerce.rbac.persistence.entities.SecurityObject.valueOf(object));
 	}
 
 	/**

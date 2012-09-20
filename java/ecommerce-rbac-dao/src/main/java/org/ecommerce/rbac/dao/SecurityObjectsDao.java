@@ -63,8 +63,9 @@ public interface SecurityObjectsDao {
 	 * Method used to create a new security object.
 	 * 
 	 * @param object SecurityObject instance.
+	 * @return The newly created object identifier.
 	 */
-	public void createNewObject(SecurityObject object);
+	public int createNewObject(SecurityObject object);
 	
 	/**
 	 * Method used to update a security object. 

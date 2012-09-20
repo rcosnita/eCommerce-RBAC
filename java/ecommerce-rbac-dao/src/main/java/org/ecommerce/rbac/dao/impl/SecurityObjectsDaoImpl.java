@@ -108,7 +108,7 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 	 */
 	@Override
 	@Transactional
-	public void createNewObject(SecurityObject object) {
+	public int createNewObject(SecurityObject object) {
 		logger.info(String.format("JPA creating new object %s.", object.getName()));
 		
 		if(object.getId() != null) {
@@ -116,6 +116,8 @@ public class SecurityObjectsDaoImpl implements SecurityObjectsDao {
 		}
 		
 		getEntityManager().persist(object);
+		
+		return object.getId();
 	}
 
 	/**
