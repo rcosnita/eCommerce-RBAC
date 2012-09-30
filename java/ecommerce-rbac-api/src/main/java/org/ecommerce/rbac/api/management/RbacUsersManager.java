@@ -8,7 +8,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.ecommerce.rbac.dto.Operations;
@@ -149,7 +148,16 @@ public interface RbacUsersManager {
 	 */
 	@Path("/{userId}")
 	@DELETE
-	public void deleteUser(Integer userId);
+	public void deleteUser(@PathParam("userId") Integer userId);
+	
+	/**
+	 * Method used to remove user from all roles he is currently assigned to.
+	 * 
+	 * @param userId User unique identifier.
+	 */
+	@Path("/{userId}/roles")
+	@DELETE
+	public void deleteUserFromAllRoles(@PathParam("userId") Integer userId);
 	
 	/**
 	 * Method used to stop all active sessions of an user.
@@ -158,5 +166,5 @@ public interface RbacUsersManager {
 	 */
 	@Path("/{userId}/sessions")
 	@DELETE
-	public void deleteUserSessions(Integer userId);
+	public void deleteUserSessions(@PathParam("userId") Integer userId);
 }

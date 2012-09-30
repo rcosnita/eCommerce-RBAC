@@ -1,9 +1,11 @@
 package org.ecommerce.rbac.impl.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import org.ecommerce.rbac.api.management.RbacUsersManager;
+import org.ecommerce.rbac.dao.RolesDao;
 import org.ecommerce.rbac.dao.UsersDao;
 import org.ecommerce.rbac.dto.Operations;
 import org.ecommerce.rbac.dto.Permissions;
@@ -48,10 +50,12 @@ public class RbacUsersManagerImpl implements RbacUsersManager {
 	private final static Logger logger = Logger.getLogger(RbacUsersManagerImpl.class.getName());
 	
 	private UsersDao usersDAO;
+	private RolesDao rolesDAO;
 	
 	@Autowired
-	public RbacUsersManagerImpl(UsersDao usersDAO) {
+	public RbacUsersManagerImpl(UsersDao usersDAO, RolesDao rolesDAO) {
 		this.usersDAO = usersDAO;
+		this.rolesDAO = rolesDAO;
 	}
 
 	/**
@@ -193,6 +197,23 @@ public class RbacUsersManagerImpl implements RbacUsersManager {
 		usersDAO.deleteUser(userId);
 		
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional
+	public void deleteUserFromAllRoles(Integer userId) {
+		org.ecommerce.rbac.persistence.entities.User user = usersDAO.loadUserById(userId);
+		List<Integer> userIds = new ArrayList<Integer>();
+		userIds.add(userId);
+		
+		List<org.ecommerce.rbac.persistence.entities.Role> roles = user.getRoles();
+		
+		for(org.ecommerce.rbac.persistence.entities.Role role : roles) {
+			this.rolesDAO.removeUsersFromRole(role.getId(), userIds);
+		}
+	}	
 
 	/**
 	 * {@inheritDoc}

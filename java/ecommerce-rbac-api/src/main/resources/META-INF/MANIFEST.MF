@@ -9,7 +9,7 @@ Bundle-Name: ecommerce-rbac-api
 Created-By: Apache Maven Bundle Plugin
 Build-Jdk: 1.6.0_26
 Bundle-Version: 1.0.0.SNAPSHOT
-Bnd-LastModified: 1348131136688
+Bnd-LastModified: 1349005302468
 Bundle-ManifestVersion: 2
 Bundle-Description: This is the api for ecommerce rbac. You can find t
  he api and the transferable objects used within  	ecommerce role base
