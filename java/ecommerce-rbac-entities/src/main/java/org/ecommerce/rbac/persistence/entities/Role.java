@@ -1,6 +1,5 @@
 package org.ecommerce.rbac.persistence.entities;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 /**
 Copyright (C) 2011 by Radu Viorel Cosnita
@@ -73,7 +74,7 @@ public class Role {
 	 * empty collection.
 	 */
 	@ManyToMany
-	@JoinTable(name="AssignedUsers",
+	@JoinTable(name="AssignedUsers", 
 			joinColumns={@JoinColumn(name="role_id", referencedColumnName="id")},
 			inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")}
 	)

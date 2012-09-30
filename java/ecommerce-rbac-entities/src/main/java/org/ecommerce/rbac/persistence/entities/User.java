@@ -1,12 +1,14 @@
 package org.ecommerce.rbac.persistence.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -49,13 +51,16 @@ THE SOFTWARE.*/
 @NamedQueries({
 	@NamedQuery(name="Users.loadAll", query="SELECT obj FROM User obj")
 })
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Users.removeFromAllRoles", query="DELETE FROM AssignedUsers WHERE user_id = ?1", resultClass=User.class)
+})
 public class User {
 	@Id
 	@Column(name="id")
 	private Integer id;
 	
-	@ManyToMany(mappedBy="assignedUsers", cascade={CascadeType.ALL})
-	private List<Role> roles;
+	@ManyToMany(mappedBy="assignedUsers")
+	private List<Role> roles = new ArrayList<Role>();
 	
 	public Integer getId() {
 		return id;

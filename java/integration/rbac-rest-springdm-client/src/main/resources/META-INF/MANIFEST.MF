@@ -6,7 +6,7 @@ Bundle-Name: rbac-rest-springdm-client
 Created-By: Apache Maven Bundle Plugin
 Build-Jdk: 1.6.0_26
 Bundle-Version: 1.0.0.SNAPSHOT
-Bnd-LastModified: 1343328581233
+Bnd-LastModified: 1349009031351
 Bundle-ManifestVersion: 2
 Bundle-Description: This is the rbac integration layer compatible with
   osgi spring dm environment.

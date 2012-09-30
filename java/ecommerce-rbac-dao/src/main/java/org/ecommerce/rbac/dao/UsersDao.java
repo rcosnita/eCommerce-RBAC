@@ -104,6 +104,13 @@ public interface UsersDao {
 	public void deleteUser(Integer userId);
 	
 	/**
+	 * Method used to remove all roles from a given user.
+	 * 
+	 * @param userId User unique identifier.
+	 */
+	public void clearUserRoles(Integer userId);
+	
+	/**
 	 * Method used to stop all user active sessions using a single transaction.
 	 *  
 	 * @param id User unique identifier.

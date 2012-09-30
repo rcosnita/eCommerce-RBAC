@@ -50,12 +50,10 @@ public class RbacUsersManagerImpl implements RbacUsersManager {
 	private final static Logger logger = Logger.getLogger(RbacUsersManagerImpl.class.getName());
 	
 	private UsersDao usersDAO;
-	private RolesDao rolesDAO;
 	
 	@Autowired
-	public RbacUsersManagerImpl(UsersDao usersDAO, RolesDao rolesDAO) {
+	public RbacUsersManagerImpl(UsersDao usersDAO) {
 		this.usersDAO = usersDAO;
-		this.rolesDAO = rolesDAO;
 	}
 
 	/**
@@ -204,15 +202,9 @@ public class RbacUsersManagerImpl implements RbacUsersManager {
 	@Override
 	@Transactional
 	public void deleteUserFromAllRoles(Integer userId) {
-		org.ecommerce.rbac.persistence.entities.User user = usersDAO.loadUserById(userId);
-		List<Integer> userIds = new ArrayList<Integer>();
-		userIds.add(userId);
+		logger.info(String.format("REST removing user %s from all roles.", userId));
 		
-		List<org.ecommerce.rbac.persistence.entities.Role> roles = user.getRoles();
-		
-		for(org.ecommerce.rbac.persistence.entities.Role role : roles) {
-			this.rolesDAO.removeUsersFromRole(role.getId(), userIds);
-		}
+		usersDAO.clearUserRoles(userId);
 	}	
 
 	/**

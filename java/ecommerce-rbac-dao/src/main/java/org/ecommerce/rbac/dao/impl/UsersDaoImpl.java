@@ -1,12 +1,12 @@
 package org.ecommerce.rbac.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.UsersDao;
@@ -196,5 +196,19 @@ public class UsersDaoImpl implements UsersDao {
 		}
 		
 		getEntityManager().remove(user);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional
+	public void clearUserRoles(Integer userId) {
+		logger.info(String.format("JPA removing user %s from all roles.", userId));
+		
+		Query query = getEntityManager().createNamedQuery("Users.removeFromAllRoles");
+		query.setParameter(1, userId);
+		
+		query.executeUpdate();
 	}
 }
