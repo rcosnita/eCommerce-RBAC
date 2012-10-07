@@ -164,4 +164,14 @@ public class RbacPermissionsManagerImpl implements RbacPermissionsManager {
 		
 		permissionsDAO.removePermission(permissionId);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removePermissionFromRoles(Integer permissionId) {
+		logger.info(String.format("REST removing RBAC permission %s from all roles.",permissionId));
+		
+		permissionsDAO.removePermissionFromRoles(permissionId);
+	}
 }

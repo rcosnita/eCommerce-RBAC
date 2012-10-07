@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -53,6 +55,11 @@ THE SOFTWARE.*/
 			query="SELECT perm FROM Permission perm INNER JOIN perm.roles role " +
 				"INNER JOIN role.assignedUsers user " +
 				"WHERE user.id = :userId")
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Permission.removeFromRoles", 
+			query="DELETE FROM AssignedPermissions WHERE permission_id = ?1", 
+			resultClass=Permission.class)
 })
 public class Permission {
 	@Id

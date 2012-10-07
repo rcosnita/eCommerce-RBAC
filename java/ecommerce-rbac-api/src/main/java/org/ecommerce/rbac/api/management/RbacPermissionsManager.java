@@ -136,4 +136,13 @@ public interface RbacPermissionsManager {
 	@Path("/{permissionId}")
 	@DELETE
 	public void removePermission(@PathParam("permissionId") Integer permissionId);
+	
+	/**
+	 * Method used to remove a given permission from all roles which are granted to use it.
+	 * 
+	 * @param permissionId Permission unique identifier.
+	 */
+	@Path("/{permissionId}/roles")
+	@DELETE
+	public void removePermissionFromRoles(@PathParam("permissionId") Integer permissionId);
 }

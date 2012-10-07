@@ -163,11 +163,22 @@ public class PermissionsDaoImpl implements PermissionsDao {
 			throw new NoResultException(String.format("Permission %s not found.", permissionId));
 		}
 		
-		Query query = getEntityManager().createNamedQuery("Permissions.deleteFromRoles");
-		query.setParameter("permissionId", permissionId);
-		
-		query.executeUpdate();
+		this.removePermissionFromRoles(permissionId);
 		
 		getEntityManager().remove(perm);
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	@Transactional
+	public void removePermissionFromRoles(Integer permissionId) {
+		logger.info(String.format("JPA removing permission %s from all roles.", permissionId));
+		
+		Query query = getEntityManager().createNamedQuery("Permission.removeFromRoles");
+		query.setParameter(1, permissionId);
+		
+		query.executeUpdate();		
 	}
 }

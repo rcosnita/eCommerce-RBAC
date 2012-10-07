@@ -82,4 +82,11 @@ public interface PermissionsDao {
 	 * @param permissionId Permission unique identifier.
 	 */
 	public void removePermission(Integer permissionId);
+	
+	/**
+	 * Removes a given permission from all roles who are granted to use it.
+	 * 
+	 * @param permissionId Permission unique identifier.
+	 */
+	public void removePermissionFromRoles(Integer permissionId);
 }
