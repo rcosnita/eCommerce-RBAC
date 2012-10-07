@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import org.ecommerce.rbac.dao.PermissionsDao;
 import org.ecommerce.rbac.persistence.entities.Operation;
 import org.ecommerce.rbac.persistence.entities.Permission;
+import org.ecommerce.rbac.persistence.entities.Role;
 import org.ecommerce.rbac.persistence.entities.SecurityObject;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,6 +89,19 @@ public class PermissionsDaoImpl implements PermissionsDao {
 		
 		return perm;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Role> loadRolesForPermission(Integer permissionId) {
+		logger.info(String.format("JPA loading all roles granted to %s permission.", permissionId));
+		
+		TypedQuery<Role> query = getEntityManager().createNamedQuery("Roles.loadForPermission", Role.class);
+		query.setParameter("permissionId", permissionId);
+		
+		return query.getResultList();
+	}	
 
 	/**
 	 * {@inheritDoc}

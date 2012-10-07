@@ -51,6 +51,7 @@ THE SOFTWARE.*/
 @NamedQueries({
 	@NamedQuery(name="Roles.loadAll", query="SELECT obj FROM Role obj ORDER BY name"),
 	@NamedQuery(name="Roles.loadByName", query="SELECT obj FROM Role obj WHERE obj.name = :roleName"),
+	@NamedQuery(name="Roles.loadForPermission", query="SELECT obj FROM Role obj LEFT JOIN obj.permissions perm WHERE perm.id = :permissionId ORDER BY obj.name"),
 	@NamedQuery(name="Roles.loadNonConflictingRolesForUser",
 			query="SELECT obj FROM Role obj INNER JOIN obj.assignedUsers user " +
 				"WHERE user.id = :userId AND length(obj.dynamicSeparations) = 0 " +

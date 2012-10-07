@@ -8,6 +8,7 @@ import org.ecommerce.rbac.dao.PermissionsDao;
 import org.ecommerce.rbac.dto.Operation;
 import org.ecommerce.rbac.dto.Permission;
 import org.ecommerce.rbac.dto.Permissions;
+import org.ecommerce.rbac.dto.Roles;
 import org.ecommerce.rbac.dto.SecurityObject;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,24 @@ public class RbacPermissionsManagerImpl implements RbacPermissionsManager {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Roles loadRolesForPermission(Integer permissionId) {
+		logger.info(String.format("REST loading RBAC roles for permission %s.", permissionId));
+		
+		List<org.ecommerce.rbac.persistence.entities.Role> rolesEntities = permissionsDAO.loadRolesForPermission(permissionId);
+		
+		Roles roles = new Roles();
+		
+		for(org.ecommerce.rbac.persistence.entities.Role role : rolesEntities) {
+			roles.getRoles().add(role.toRoleDTO());
+		}
+		
+		return roles;
+	}	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Operation loadPermissionOperation(Integer permissionId) {
 		logger.info(String.format("REST loading RBAC permission %s operation.", permissionId));
 		
@@ -137,8 +156,6 @@ public class RbacPermissionsManagerImpl implements RbacPermissionsManager {
 	
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @param permissionId Permission unique identifier.
 	 */
 	@Override
 	public void removePermission(Integer permissionId) {

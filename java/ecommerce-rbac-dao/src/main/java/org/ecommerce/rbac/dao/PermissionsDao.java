@@ -3,6 +3,7 @@ package org.ecommerce.rbac.dao;
 import java.util.List;
 
 import org.ecommerce.rbac.persistence.entities.Permission;
+import org.ecommerce.rbac.persistence.entities.Role;
 
 /**
 Copyright (C) 2011 by Radu Viorel Cosnita
@@ -47,6 +48,14 @@ public interface PermissionsDao {
 	 * @return
 	 */
 	public Permission loadPermissionById(Integer permissionId);
+	
+	/**
+	 * Method used to load all roles that hold a given permission.
+	 * 
+	 * @param permissionId Permission unique identifier.
+	 * @return
+	 */
+	public List<Role> loadRolesForPermission(Integer permissionId);
 	
 	/**
 	 * Method used to create a new permission.

@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.ecommerce.rbac.dto.Operation;
 import org.ecommerce.rbac.dto.Permission;
 import org.ecommerce.rbac.dto.Permissions;
+import org.ecommerce.rbac.dto.Roles;
 import org.ecommerce.rbac.dto.SecurityObject;
 
 /**
@@ -71,6 +72,16 @@ public interface RbacPermissionsManager {
 	public Permission loadPermissionById(@PathParam("permissionId") Integer permissionId);
 	
 	/**
+	 * Method used to load all roles that are granted with the specified permission.
+	 *  
+	 * @param permissionId Permission unique identifier.
+	 * @return
+	 */
+	@Path("/{permissionId}/roles")
+	@GET
+	public Roles loadRolesForPermission(@PathParam("permissionId") Integer permissionId);
+	
+	/**
 	 * Method used to load operation belonging to a permission. 
 	 * 
 	 * @param permissionId
@@ -103,7 +114,7 @@ public interface RbacPermissionsManager {
 	public int createNewPermissions(
 			@PathParam("operationId") Integer operationId, 
 			@PathParam("objectId") Integer objectId,
-			Permission permission);
+			Permission permission);	
 	
 	/**
 	 * Method used to update a specified permission.
@@ -115,7 +126,7 @@ public interface RbacPermissionsManager {
 	@PUT
 	public void updateExistingPermission(
 			@PathParam("permissionId") Integer permissionId,
-			Permission permission);
+			Permission permission);	
 	
 	/**
 	 * Method used to remove the specified permission.
