@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  * 
  * @author Radu Viorel Cosnita
  * @version 1.0
- * @since 1.0
  */
 @Component("noResultExceptionMapperBean")
 @Provider

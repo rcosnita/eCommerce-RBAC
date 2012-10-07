@@ -19,7 +19,8 @@
 	<!-- Instantiating operations rest service. -->
     <jaxrs:server id="rbacOperationsWS" address="/operations">
     	<jaxrs:providers>
-    		<ref bean="noResultExceptionMapperBean" />
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
+    		<ref bean="noResultExceptionMapperBean" />    		
     		<ref bean="constraintViolationExceptionBean" />	
     	</jaxrs:providers>
         <jaxrs:serviceBeans>
@@ -30,6 +31,7 @@
 	<!-- Instantiating operations rest service. -->
     <jaxrs:server id="rbacObjectsWS" address="/objects">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
@@ -41,6 +43,7 @@
 	<!-- Instantiating permissions rest service. -->
     <jaxrs:server id="rbacPermissionsWS" address="/permissions">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
@@ -52,6 +55,7 @@
 	<!-- Instantiating roles rest service. -->
     <jaxrs:server id="rbacRolesWS" address="/roles">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
@@ -63,6 +67,7 @@
 	<!-- Instantiating users rest service. -->
     <jaxrs:server id="rbacUsersWS" address="/users">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
@@ -74,6 +79,7 @@
 	<!-- Instantiating dsd rest service. -->
 	<jaxrs:server id="rbacDsdWS" address="/dsd">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
@@ -85,6 +91,7 @@
 	<!-- Instantiating inheritance rest service. -->
 	<jaxrs:server id="rbacInheritanceWS" address="/roles/inheritance">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
@@ -96,6 +103,7 @@
 	<!-- Instantiating sessions rest service. -->
 	<jaxrs:server id="rbaSessionsWS" address="/sessions">
     	<jaxrs:providers>
+    	    <ref bean="emptyResultDataAccessExceptionMapperBean" />
     		<ref bean="noResultExceptionMapperBean" />
     		<ref bean="constraintViolationExceptionBean" />
     	</jaxrs:providers>    
