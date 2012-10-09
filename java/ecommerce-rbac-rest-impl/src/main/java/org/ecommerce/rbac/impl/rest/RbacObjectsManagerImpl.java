@@ -118,6 +118,7 @@ public class RbacObjectsManagerImpl implements RbacObjectsManager {
 	public void updateExistingObject(Integer objectId, SecurityObject object) {
 		logger.info(String.format("REST updating RBAC object %s.", object.getName()));
 		
+		object.setId(objectId);
 		objectsDAO.updateObject(org.ecommerce.rbac.persistence.entities.SecurityObject.valueOf(object));
 	}
 
