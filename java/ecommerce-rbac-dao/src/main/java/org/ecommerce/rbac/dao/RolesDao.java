@@ -77,10 +77,11 @@ public interface RolesDao {
 	 * Method used to create a new role.
 	 * 
 	 * @param role Role instance.
+	 * @return The newly created role unique identifier.
 	 * 
 	 * @throws EntityExistsException Thrown when the role already exist.
 	 */
-	public void createNewRole(Role role);
+	public Integer createNewRole(Role role);
 	
 	/**
 	 * Method used to update an existing role.

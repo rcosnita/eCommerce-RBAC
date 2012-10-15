@@ -160,14 +160,14 @@ public class RbacRolesManagerImpl implements RbacRolesManager {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void createNewRole(Role role) {
+	public Integer createNewRole(Role role) {
 		logger.info(String.format("REST creating new RBAC role %s.", role.getName()));
 		
 		if(role.getId() != null) {
 			throw new UnsupportedOperationException("You must not specify id.");
 		}
 		
-		rolesDAO.createNewRole(org.ecommerce.rbac.persistence.entities.Role.valueOf(role));
+		return rolesDAO.createNewRole(org.ecommerce.rbac.persistence.entities.Role.valueOf(role));
 	}
 
 	/**

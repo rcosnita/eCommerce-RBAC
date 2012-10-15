@@ -100,7 +100,7 @@ public class RolesDaoImpl implements RolesDao {
 	 */
 	@Override
 	@Transactional
-	public void createNewRole(Role role) {
+	public Integer createNewRole(Role role) {
 		logger.info(String.format("JPA create role %s.", role.getName()));
 		
 		if(role.getId() != null) {
@@ -108,6 +108,8 @@ public class RolesDaoImpl implements RolesDao {
 		}
 		
 		getEntityManager().persist(role);
+		
+		return role.getId();
 	}
 
 	/**

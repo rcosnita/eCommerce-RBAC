@@ -126,7 +126,7 @@ public interface RbacRolesManager {
 	 */
 	@Path("/")
 	@POST
-	public void createNewRole(Role role);
+	public Integer createNewRole(Role role);
 	
 	/**
 	 * Method used to update an existing role.
