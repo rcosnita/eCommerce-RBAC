@@ -177,7 +177,7 @@ public class RbacRolesManagerImpl implements RbacRolesManager {
 	public void updateExistingRole(Integer roleId, Role role) {
 		logger.info(String.format("REST updating RBAC role %s.", role.getName()));
 		
-		if(role.getId() == null) {
+		if(roleId == null) {
 			throw new UnsupportedOperationException("You must specify id.");
 		}
 		
