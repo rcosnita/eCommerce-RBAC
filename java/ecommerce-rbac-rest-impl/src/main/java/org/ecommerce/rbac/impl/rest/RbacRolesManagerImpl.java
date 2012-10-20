@@ -181,6 +181,8 @@ public class RbacRolesManagerImpl implements RbacRolesManager {
 			throw new UnsupportedOperationException("You must specify id.");
 		}
 		
+		role.setId(roleId);
+		
 		rolesDAO.updateRole(org.ecommerce.rbac.persistence.entities.Role.valueOf(role));
 	}
 
