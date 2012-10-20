@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.ecommerce.rbac.dao.RolesDao;
@@ -198,18 +199,50 @@ public class RolesDaoImpl implements RolesDao {
 	}
 
 	/**
+	 * Method used to remove all users from a given role.
+	 * 
+	 * @param roleId Role unique identifier.
+	 */
+	@Transactional
+	private void removeAllUsersFromRole(Integer roleId) {
+		Query query = getEntityManager().createNamedQuery("Roles.removeAllUsers");
+		query.setParameter(1, roleId);
+		
+		query.executeUpdate();
+	}
+	
+	/**
+	 * Method used to remove all permissions from a given role.
+	 * 
+	 * @param roleId Role unique identifier.
+	 */
+	@Transactional
+	private void removeAllPermissionsFromRole(Integer roleId) {
+		Query query = getEntityManager().createNamedQuery("Roles.removeAllPermissions");
+		query.setParameter(1, roleId);
+		
+		query.executeUpdate();
+	}	
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@Transactional
 	public void removeUsersFromRole(Integer roleId, List<Integer> users) {
 		logger.info(String.format("JPA removing %s users from role %s.",
-						users.size(), roleId));
+						users.size(), roleId));		
 		
 		Role role = getEntityManager().find(Role.class, roleId);
 		
 		if(role == null) {
 			throw new NoResultException(String.format("Role %s does not exist.", roleId));
+		}
+		
+		if(users.isEmpty()) {
+			this.removeAllUsersFromRole(roleId);
+			
+			return;
 		}
 		
 		for(Integer userId : users) {
@@ -237,6 +270,12 @@ public class RolesDaoImpl implements RolesDao {
 		if(role == null) {
 			throw new NoResultException(String.format("Role %s does not exist.", roleId));
 		}
+		
+		if(permissions.isEmpty()) {
+			this.removeAllPermissionsFromRole(roleId);
+			
+			return;
+		}		
 		
 		for(Integer permId : permissions) {
 			Permission perm = new Permission();

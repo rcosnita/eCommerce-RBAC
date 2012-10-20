@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -60,6 +62,10 @@ THE SOFTWARE.*/
 			query="SELECT role FROM Role role INNER JOIN role.descendants role_desc " + 
 				"WHERE role_desc.dynamicSeparations IS EMPTY AND " +
 					"role.id = :roleId")
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Roles.removeAllPermissions", query="DELETE FROM AssignedPermissions WHERE role_id = ?1", resultClass=Role.class),
+	@NamedNativeQuery(name="Roles.removeAllUsers", query="DELETE FROM AssignedUsers WHERE role_id = ?1", resultClass=Role.class)
 })
 public class Role {
 	@Id
