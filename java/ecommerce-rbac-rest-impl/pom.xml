@@ -154,6 +154,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
+					<url>http://localhost:8080/manager/html</url>
 					<server>tomcat_local</server>
 				</configuration>
 			</plugin>
