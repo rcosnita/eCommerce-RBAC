@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="ecommerce-rbac-rest-impl">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <dependent-module archiveName="ecommerce-rbac-api-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ecommerce-rbac-api/ecommerce-rbac-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -13,7 +13,7 @@
         <dependent-module archiveName="ecommerce-rbac-dao-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ecommerce-rbac-dao/ecommerce-rbac-dao">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="ecommerce-rbac-rest-impl"/>
         <property name="java-output-path" value="/ecommerce-rbac-rest-impl/target/classes"/>
+        <property name="context-root" value="ecommerce-rbac-impl"/>
     </wb-module>
 </project-modules>
