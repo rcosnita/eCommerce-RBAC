@@ -188,18 +188,17 @@ DROP TABLE IF EXISTS `Permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Permissions` (
-  `operation_id` int(10) DEFAULT NULL,
-  `object_id` int(10) DEFAULT NULL,
+  `operation_id` int(10) NOT NULL,
+  `object_id` int(10) NOT NULL,
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unq_permissions_name` (`name`),
-  UNIQUE KEY `unq_permissions_objoperation` (`object_id`,`operation_id`),
   KEY `fk_permission_operation` (`operation_id`),
   KEY `fk_permissions_object` (`object_id`),
   CONSTRAINT `fk_permissions_object` FOREIGN KEY (`object_id`) REFERENCES `Objects` (`id`),
   CONSTRAINT `fk_permission_operation` FOREIGN KEY (`operation_id`) REFERENCES `Operations` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +223,7 @@ CREATE TABLE `Roles` (
   `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unq_roles_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +329,7 @@ DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-15  7:58:49
+-- Dump completed on 2013-01-15  8:19:43
